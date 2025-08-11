@@ -29,40 +29,37 @@ a:hover{ opacity:.85 }
   background: rgba(0,0,0,.9);
 }
 
-/* Name + tagline stacked */
-.brand-group{ display:flex; flex-direction:column; }
+/* Name + tagline stacked and centered */
+.brand-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers both name & tagline horizontally */
+}
 
 /* Name (not bold) */
-.brand{
+.brand {
   font-weight: 400;
   letter-spacing: .02em;
   font-size: 28px;
   line-height: 1;
   display: block;
+  text-align: center; /* ensures text is centered */
 }
 
-/* Tagline under name */
-.tagline{
+/* Tagline centered under name */
+.tagline {
   margin-top: 4px;
   font-weight: 300;
   font-size: 14px;
   letter-spacing: .12em;
   color: var(--muted);
+  text-align: center;
 }
-
-/* Push nav to the far right and keep on one line */
-.nav{
-  margin-left: auto;           /* <- key: forces nav to the right */
-  display: flex;
-  gap: 18px;
-  align-items: center;
-}
-.nav a{ display:inline-block; }
 
 /* Bigger on desktop */
-@media (min-width: 900px){
-  .brand{ font-size: 34px; }
-  .tagline{ font-size: 16px; }
+@media (min-width: 900px) {
+  .brand { font-size: 34px; }
+  .tagline { font-size: 16px; }
 }
 .nav a{ margin-left:18px }
 .nav .active{ opacity:.6 }
