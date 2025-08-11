@@ -21,32 +21,48 @@ a{ color:var(--fg); text-decoration:none }
 a:hover{ opacity:.85 }
 
 .site-header{
-  position:sticky; top:0; z-index:10;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:20px 24px; background:rgba(0,0,0,.9);
+  position: sticky; top: 0; z-index: 10;
+  display: flex;      /* flex row */
+  align-items: flex-start;
+  gap: 24px;
+  padding: 20px 24px;
+  background: rgba(0,0,0,.9);
 }
-.brand {
-  font-weight: 400; /* normal weight */
+
+/* Name + tagline stacked */
+.brand-group{ display:flex; flex-direction:column; }
+
+/* Name (not bold) */
+.brand{
+  font-weight: 400;
   letter-spacing: .02em;
   font-size: 28px;
+  line-height: 1;
   display: block;
 }
 
-.tagline {
-  font-weight: 300; /* lighter */
+/* Tagline under name */
+.tagline{
+  margin-top: 4px;
+  font-weight: 300;
   font-size: 14px;
-  letter-spacing: 0.1em;
+  letter-spacing: .12em;
   color: var(--muted);
-  margin-top: 2px;
 }
 
-@media (min-width: 900px) {
-  .brand {
-    font-size: 34px;
-  }
-  .tagline {
-    font-size: 16px;
-  }
+/* Push nav to the far right and keep on one line */
+.nav{
+  margin-left: auto;           /* <- key: forces nav to the right */
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.nav a{ display:inline-block; }
+
+/* Bigger on desktop */
+@media (min-width: 900px){
+  .brand{ font-size: 34px; }
+  .tagline{ font-size: 16px; }
 }
 .nav a{ margin-left:18px }
 .nav .active{ opacity:.6 }
