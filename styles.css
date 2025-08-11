@@ -41,6 +41,11 @@ a:hover{ opacity:.85 }
 
 .container{ max-width:var(--max); margin:40px auto; padding:0 24px }
 .container.narrow{ max-width:800px }
+.container.full {
+  max-width: none;   /* No width limit */
+  margin: 0;         /* Remove top/bottom spacing */
+  padding: 0;        /* No side padding */
+}
 
 .grid {
   display: flex;
