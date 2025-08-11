@@ -2,6 +2,7 @@
 *{ box-sizing:border-box }
 html,body{ height:100% }
 body{
+  font-family: 'League Spartan', sans-serif;
   margin:0;
   background:var(--bg);
   color:var(--fg);
@@ -16,9 +17,9 @@ a:hover{ opacity:.85 }
   padding:20px 24px; background:rgba(0,0,0,.9);
 }
 .brand {
-  font-weight: 800;
-  letter-spacing: .02em;
-  font-size: 28px; /* bump up size */
+    font-weight: 700;
+    letter-spacing: .02em;
+    font-size: 28px; /* adjust as needed */
 }
 
 @media (min-width: 900px) {
