@@ -48,9 +48,13 @@ a:hover{ opacity:.85 }
   gap: 0; /* Remove gaps if you want them flush like Carl Herse */
 }
 
+.tile {
+  position: relative; /* So label positioning works */
+}
+
 .tile img {
   width: 100%;
-  height: auto;
+  height: auto; /* Always scale proportionally */
   object-fit: cover;
   display: block;
   border-radius: 0; /* No rounded corners */
@@ -78,5 +82,3 @@ h1,h2{ margin:.2em 0 .6em }
 
 .site-footer{ border-top:1px solid #222; padding:20px 24px; margin-top:40px }
 .site-footer .social{ display:flex; gap:18px; flex-wrap:wrap }
-
-@media (max-width:768px){ .tile img{ height:220px } }
