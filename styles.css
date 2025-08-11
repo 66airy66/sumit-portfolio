@@ -20,20 +20,21 @@ body{
 a{ color:var(--fg); text-decoration:none }
 a:hover{ opacity:.85 }
 
+/* Header layout */
 .site-header{
   position: sticky; top: 0; z-index: 10;
-  display: flex;      /* flex row */
-  align-items: flex-start;
+  display: flex;
+  align-items: center;          /* center vertically so nav doesn't slip */
   gap: 24px;
   padding: 20px 24px;
   background: rgba(0,0,0,.9);
 }
 
 /* Name + tagline stacked and centered */
-.brand-group {
+.brand-group{
   display: flex;
   flex-direction: column;
-  align-items: center; /* centers both name & tagline horizontally */
+  align-items: center;
 }
 
 /* Name (not bold) */
@@ -55,6 +56,16 @@ a:hover{ opacity:.85 }
   color: var(--muted);
   text-align: center;
 }
+
+/* Nav pinned right, no wrapping */
+.nav{
+  margin-left: auto;            /* push to the right */
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  white-space: nowrap;          /* keep on one line */
+}
+.nav a{ display:inline-block; }
 
 /* Bigger on desktop */
 @media (min-width: 900px) {
