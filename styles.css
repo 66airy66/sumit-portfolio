@@ -15,7 +15,17 @@ a:hover{ opacity:.85 }
   display:flex; justify-content:space-between; align-items:center;
   padding:20px 24px; background:rgba(0,0,0,.9);
 }
-.brand{ font-weight:800; letter-spacing:.02em }
+.brand {
+  font-weight: 800;
+  letter-spacing: .02em;
+  font-size: 28px; /* bump up size */
+}
+
+@media (min-width: 900px) {
+  .brand {
+    font-size: 34px; /* even bigger on desktop */
+  }
+}
 .nav a{ margin-left:18px }
 .nav .active{ opacity:.6 }
 
