@@ -26,14 +26,26 @@ a:hover{ opacity:.85 }
   padding:20px 24px; background:rgba(0,0,0,.9);
 }
 .brand {
-    font-weight: 700;
-    letter-spacing: .02em;
-    font-size: 28px; /* adjust as needed */
+  font-weight: 400; /* normal weight */
+  letter-spacing: .02em;
+  font-size: 28px;
+  display: block;
+}
+
+.tagline {
+  font-weight: 300; /* lighter */
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-top: 2px;
 }
 
 @media (min-width: 900px) {
   .brand {
-    font-size: 34px; /* even bigger on desktop */
+    font-size: 34px;
+  }
+  .tagline {
+    font-size: 16px;
   }
 }
 .nav a{ margin-left:18px }
