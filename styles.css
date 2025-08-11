@@ -41,15 +41,19 @@ a:hover{ opacity:.85 }
 .container{ max-width:var(--max); margin:40px auto; padding:0 24px }
 .container.narrow{ max-width:800px }
 
-.grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:24px }
-.tile{ position:relative; overflow:hidden; border-radius:12px }
+.grid {
+  display: flex;
+  flex-direction: column; /* Stack images vertically */
+  gap: 0; /* Remove gaps if you want them flush like Carl Herse */
+}
+
 .tile img {
   width: 100%;
-  height: auto; /* Let the height adjust naturally */
-  display: block;
+  height: auto;
   object-fit: cover;
+  display: block;
+  border-radius: 0; /* No rounded corners */
   transition: transform .4s ease, filter .25s ease;
-  border-radius: 0; /* Remove rounded corners if you want full edge-to-edge */
 }
 .tile .label{
   position:absolute; left:12px; bottom:12px;
