@@ -90,50 +90,37 @@ a:hover{ opacity:.85 }
 }
 
 .tile {
-  position: relative; /* So label positioning works */
+  position: relative;
 }
 
 .tile img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
   display: block;
   border-radius: 0;
   transition: transform .4s ease, filter .25s ease;
+  z-index: 1; /* stays behind text */
 }
 
-/* overlay comes here */
-.tile::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0);
-  transition: background .25s ease;
-  pointer-events: none;
-}
-
-.tile:hover::after {
-  background: rgba(0,0,0,.6); /* adjust darkness */
-}
-
-/* label comes after overlay */
 .tile .label {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: none;
-  padding: 0;
   font-weight: 700;
   font-size: 24px;
-  color: white;
+  color: white; /* always white */
+  z-index: 2; /* ensures it’s above the image */
   opacity: 0;
   transition: opacity .2s;
-  text-align: center;
 }
+
+.tile:hover img {
+  transform: scale(1.03);
+  filter: brightness(40%);
 }
-.tile:hover img{ transform:scale(1.03); filter:brightness(40%) }
-.tile:hover .label{ opacity:1 }
+
+.tile:hover .label {
+  opacity: 1;
+}
 
 h1,h2{ margin:.2em 0 .6em }
 .muted{ color:var(--muted) }
