@@ -101,10 +101,20 @@ a:hover{ opacity:.85 }
   border-radius: 0; /* No rounded corners */
   transition: transform .4s ease, filter .25s ease;
 }
-.tile .label{
-  position:absolute; left:12px; bottom:12px;
-  background:rgba(0,0,0,.55); padding:8px 10px; font-weight:700;
-  border-radius:8px; opacity:0; transition:opacity .2s;
+.tile .label {
+  position: absolute;
+  top: 50%; /* center vertically */
+  left: 50%; /* center horizontally */
+  transform: translate(-50%, -50%); /* perfect centering */
+  background: none; /* remove black box */
+  padding: 0; /* no padding since no box */
+  font-weight: 700;
+  font-size: 24px; /* bigger text */
+  color: white; /* ensure readable text */
+  opacity: 0;
+  transition: opacity .2s;
+  text-align: center;
+}
 }
 .tile:hover img{ transform:scale(1.03); filter:brightness(70%) }
 .tile:hover .label{ opacity:1 }
