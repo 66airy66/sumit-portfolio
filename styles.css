@@ -116,7 +116,7 @@ a:hover{ opacity:.85 }
   text-align: center;
 }
 }
-.tile:hover img{ transform:scale(1.03); filter:brightness(70%) }
+.tile:hover img{ transform:scale(1.03); filter:brightness(40%) }
 .tile:hover .label{ opacity:1 }
 
 h1,h2{ margin:.2em 0 .6em }
