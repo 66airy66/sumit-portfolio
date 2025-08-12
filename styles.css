@@ -95,22 +95,38 @@ a:hover{ opacity:.85 }
 
 .tile img {
   width: 100%;
-  height: auto; /* Always scale proportionally */
+  height: auto;
   object-fit: cover;
   display: block;
-  border-radius: 0; /* No rounded corners */
+  border-radius: 0;
   transition: transform .4s ease, filter .25s ease;
 }
+
+/* overlay comes here */
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  transition: background .25s ease;
+  pointer-events: none;
+}
+
+.tile:hover::after {
+  background: rgba(0,0,0,.6); /* adjust darkness */
+}
+
+/* label comes after overlay */
 .tile .label {
   position: absolute;
-  top: 50%; /* center vertically */
-  left: 50%; /* center horizontally */
-  transform: translate(-50%, -50%); /* perfect centering */
-  background: none; /* remove black box */
-  padding: 0; /* no padding since no box */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  padding: 0;
   font-weight: 700;
-  font-size: 24px; /* bigger text */
-  color: white; /* ensure readable text */
+  font-size: 24px;
+  color: white;
   opacity: 0;
   transition: opacity .2s;
   text-align: center;
