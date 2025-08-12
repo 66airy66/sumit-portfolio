@@ -147,3 +147,13 @@ h1,h2{ margin:.2em 0 .6em }
   gap: 18px;
   flex-wrap: wrap;
 }
+
+.site-footer .social a {
+  font-size: 24px;   /* bigger icons */
+  color: var(--fg);  /* keep white like the rest of the footer */
+  transition: opacity 0.2s ease;
+}
+
+.site-footer .social a:hover {
+  opacity: 0.8;      /* subtle fade on hover */
+}
