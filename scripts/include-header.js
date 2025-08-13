@@ -1,18 +1,33 @@
-<!-- scripts/include-header.js -->
-<script>
-// --- CONFIG: set this to your repo name (for project pages on github.io) ---
-const REPO = "sumit-portfolio"; // <- change if you rename the repo
+// scripts/include-header.js
+(() => {
+  // If this repo is published as a GitHub *project* page (username.github.io/<REPO>/),
+  // set REPO to your repository name. If you later use a custom domain, this still works.
+  const REPO = "sumit-portfolio";
 
-// If it's a github.io project site, the root path includes /REPO/.
-// If it's a custom domain or a user site root, it's just "/".
-const base = location.hostname.endsWith("github.io") ? `/${REPO}/` : "/";
+  // When hosted on *.github.io project pages, files live under /<REPO>/.
+  // On a custom domain (or user/organization root), they live under /.
+  const base = location.hostname.endsWith("github.io") ? `/${REPO}/` : "/";
 
-// Fetch and inject the header.html into the placeholder:
-fetch(`${base}header.html`)
-  .then(r => r.text())
-  .then(html => {
-    const mount = document.getElementById("site-header");
-    if (mount) mount.innerHTML = html;
-  })
-  .catch(err => console.error("Header include failed:", err));
-</script>
+  // Find the placeholder div
+  const mount = document.getElementById("site-header");
+  if (!mount) return;
+
+  // Load header.html and inject it
+  fetch(`${base}header.html`, { cache: "no-cache" })
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.text();
+    })
+    .then((html) => {
+      mount.innerHTML = html;
+
+      // OPTIONAL: highlight the current nav link
+      const filename = location.pathname.split("/").pop() || "index.html";
+      mount.querySelectorAll(".nav a").forEach((a) => {
+        if (a.getAttribute("href") === filename) {
+          a.classList.add("active"); // you already have .nav .active{ opacity:.6 } in CSS
+        }
+      });
+    })
+    .catch((err) => console.error("Header include failed:", err));
+})();
