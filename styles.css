@@ -149,7 +149,7 @@ h1,h2{ margin:.2em 0 .6em }
 }
 
 .site-footer .social a {
-  font-size: 24px;   /* bigger icons */
+  font-size: 36px;   /* bigger icons */
   color: var(--fg);  /* keep white like the rest of the footer */
   transition: opacity 0.2s ease;
 }
