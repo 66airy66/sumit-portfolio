@@ -1,18 +1,15 @@
 // scripts/include-header.js
 (() => {
-  // If this repo is published as a GitHub *project* page (username.github.io/<REPO>/),
-  // set REPO to your repository name. If you later use a custom domain, this still works.
+  // If this is a GitHub *project* page (username.github.io/<REPO>/),
+  // set this to your repository name. Works on custom domains too.
   const REPO = "sumit-portfolio";
 
-  // When hosted on *.github.io project pages, files live under /<REPO>/.
-  // On a custom domain (or user/organization root), they live under /.
+  // Files live under /<REPO>/ on *.github.io project sites; under / on custom domains.
   const base = location.hostname.endsWith("github.io") ? `/${REPO}/` : "/";
 
-  // Find the placeholder div
   const mount = document.getElementById("site-header");
   if (!mount) return;
 
-  // Load header.html and inject it
   fetch(`${base}header.html`, { cache: "no-cache" })
     .then((r) => {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -21,13 +18,20 @@
     .then((html) => {
       mount.innerHTML = html;
 
-      // OPTIONAL: highlight the current nav link
+      // ✅ Auto-highlight current nav link
       const filename = location.pathname.split("/").pop() || "index.html";
       mount.querySelectorAll(".nav a").forEach((a) => {
-        if (a.getAttribute("href") === filename) {
-          a.classList.add("active"); // you already have .nav .active{ opacity:.6 } in CSS
-        }
+        if (a.getAttribute("href") === filename) a.classList.add("active");
       });
+
+      // ✅ Ensure Font Awesome is loaded on *every* page (icons in footer/header)
+      if (!document.querySelector('link[href*="font-awesome"]')) {
+        const fa = document.createElement("link");
+        fa.rel = "stylesheet";
+        fa.href =
+          "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css";
+        document.head.appendChild(fa);
+      }
     })
     .catch((err) => console.error("Header include failed:", err));
 })();
