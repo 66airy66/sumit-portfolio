@@ -154,6 +154,27 @@ h1,h2{ margin:.2em 0 .6em }
   transition: opacity 0.2s ease;
 }
 
+/* Project navigation */
+.project-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.project-nav a {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.project-nav a:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
 .site-footer .social a:hover {
   opacity: 0.8;      /* subtle fade on hover */
 }
