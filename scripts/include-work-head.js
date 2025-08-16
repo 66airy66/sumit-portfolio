@@ -1,52 +1,36 @@
 // /scripts/include-work-head.js
-(function () {
-  // 1) Load Plyr CSS
-  if (!document.querySelector('link[href*="plyr.css"]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css';
-    document.head.appendChild(link);
-  }
+(() => {
+  const head = document.head;
 
-  // 2) Load Plyr JS, then init
-  function loadScript(src, onload) {
+  // Prevent double-inject
+  if (document.querySelector('link[data-plyr]')) return;
+
+  const addLink = (href) => {
+    const l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = href;
+    l.setAttribute('data-plyr', '1');
+    head.appendChild(l);
+  };
+
+  const addScript = (src, onload) => {
     const s = document.createElement('script');
     s.src = src;
     s.defer = true;
     s.onload = onload;
-    document.head.appendChild(s);
-  }
+    s.onerror = (e) => console.error('Plyr load error:', e);
+    head.appendChild(s);
+  };
 
-  function initPlayers() {
-    if (!window.Plyr) return;
-    // Attach to all project videos
-    const options = {
-      controls: [
-        'play','progress','current-time','mute','volume',
-        'settings','pip','airplay','fullscreen'
-      ],
-      tooltips: { controls: true, seek: true },
-      keyboard: { global: true },
-      clickToPlay: true
-    };
-    Plyr.setup('.project-video', options);
-  }
+  // 1) Plyr CSS
+  addLink('https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css');
 
-  if (window.Plyr) {
-    // Plyr already present
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initPlayers);
-    } else {
-      initPlayers();
+  // 2) Plyr JS, then init every <video>
+  addScript('https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js', () => {
+    try {
+      Plyr.setup('video');
+    } catch (e) {
+      console.error('Plyr init error:', e);
     }
-  } else {
-    // Load Plyr, then init (handles DOM already loaded or not)
-    loadScript('https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js', () => {
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initPlayers);
-      } else {
-        initPlayers();
-      }
-    });
-  }
+  });
 })();
