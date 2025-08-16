@@ -136,9 +136,9 @@ h1,h2{ margin:.2em 0 .6em }
 /* Bigger hero video on work pages */
 .project-hero video,
 .project-hero .plyr--video {   /* the Plyr wrapper */
-  width: 110%;           /* a bit wider than the text column */
-  max-width: 900px;      /* cap the size so it doesn’t get huge */
-  margin-left: -5%;      /* re-center after making it wider */
+  width: 130%;           /* a bit wider than the text column */
+  max-width: 1200px;      /* cap the size so it doesn’t get huge */
+  margin-left: -15%;      /* re-center after making it wider */
   border-radius: 12px;
   display: block;
 }
