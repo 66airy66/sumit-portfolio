@@ -123,10 +123,16 @@ a:hover{ opacity:.85 }
   opacity: 1;
 }
 
-h1,h2{ margin:.2em 0 .6em }
-.muted{ color:var(--muted) }
-.cv-list{ padding-left:18px }
-.cv-list li{ margin:.35rem 0; color:var(--muted) }
+.cv-list {
+  list-style: none;   /* remove bullets */
+  padding-left: 0;    /* no indent */
+  margin: 0;          /* align flush with headings */
+}
+
+.cv-list li {
+  margin: .35rem 0;
+  color: var(--muted);
+}
 
 /* --- Work page header block --- */
 .project-head { 
