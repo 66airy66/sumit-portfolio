@@ -1,7 +1,12 @@
-/* ==============================
-   Base & tokens
-   ============================== */
-@font-face { 
+/* =========================================================
+   Sumit M Pujar — Global Styles
+   Single source of truth (no duplicates)
+   ========================================================= */
+
+/* --------------------------
+   Font & Design Tokens
+   -------------------------- */
+@font-face {
   font-family: 'League Spartan';
   src: url('fonts/LeagueSpartan-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 900;
@@ -13,11 +18,11 @@
   --bg:#000;
   --fg:#fff;
   --muted:#c6c6c6;
-  --max:1100px;          /* default content max width */
+  --max:1100px;               /* default content width */
 
-  /* header spacing knobs */
-  --brand-track: 0.02em; /* letter-spacing for "Sumit M Pujar" */
-  --tag-track:   0.18em; /* letter-spacing for WRITER | PRODUCER | DIRECTOR */
+  /* Header tuning knobs */
+  --brand-track: 0.02em;      /* name letter-spacing */
+  --tag-track:   0.18em;      /* tagline letter-spacing */
 }
 
 *{ box-sizing:border-box }
@@ -35,9 +40,9 @@ body{
 a{ color:var(--fg); text-decoration:none }
 a:hover{ opacity:.85 }
 
-/* ==============================
-   Header (brand left, nav right)
-   ============================== */
+/* =========================================================
+   HEADER — brand (left) + nav (right)
+   ========================================================= */
 .site-header{
   position: sticky;
   top: 0;
@@ -47,12 +52,12 @@ a:hover{ opacity:.85 }
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between;   /* pins brand left, nav right */
   gap: 24px;
-  flex-wrap: nowrap; /* never wrap brand/nav */
+  flex-wrap: nowrap;
 }
 
-/* left block = name + tagline */
+/* Left block: name + tagline */
 .brand-group{
   display: flex;
   flex-direction: column;
@@ -61,6 +66,7 @@ a:hover{ opacity:.85 }
   min-width: 0;
 }
 
+/* Name */
 .brand{
   margin: 0;
   font-weight: 400;
@@ -68,8 +74,10 @@ a:hover{ opacity:.85 }
   font-size: clamp(24px, 3.2vw, 34px);
   line-height: 1;
   white-space: nowrap;
+  text-align: left;
 }
 
+/* Tagline */
 .tagline{
   margin-top: 6px;
   font-weight: 300;
@@ -77,9 +85,10 @@ a:hover{ opacity:.85 }
   letter-spacing: var(--tag-track);
   font-size: clamp(12px, 1.6vw, 16px);
   white-space: nowrap;
+  text-align: left;
 }
 
-/* right block = nav links */
+/* Right block: nav */
 .nav{
   flex: 0 0 auto;
   display: flex;
@@ -89,31 +98,36 @@ a:hover{ opacity:.85 }
 .nav a{ display:inline-block; }
 .nav .active{ opacity:.6 }
 
-/* On small phones stack nav under brand */
+/* Small phones: stack nav under brand, keep left-aligned */
 @media (max-width: 560px){
   .site-header{
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  .nav{ margin-left: 0; }
 }
 
-/* ==============================
-   Page containers
-   ============================== */
+/* =========================================================
+   PAGE CONTAINERS
+   ========================================================= */
 .container{ max-width:var(--max); margin:40px auto; padding:0 24px }
-.container.narrow{ max-width:1100px } /* work pages */
-.container.full { max-width:none; margin:0; padding:0 }
+.container.narrow{ max-width:1100px }       /* work pages default */
+.container.full  { max-width:none; margin:0; padding:0 }
 
-/* ==============================
-   Index grid tiles
-   ============================== */
+/* Make work pages a touch wider on desktop (Carl vibe, not edge-to-edge) */
+@media (min-width: 900px){
+  .container.narrow{ max-width:1200px; }
+}
+
+/* =========================================================
+   INDEX — full-width stacked tiles
+   ========================================================= */
 .grid{
   display:flex;
-  flex-direction:column; /* stack tiles */
-  gap:0;
+  flex-direction:column;
+  gap:0;                       /* flush, like Carl Herse */
 }
+
 .tile{ position:relative; }
 .tile img{
   width:100%;
@@ -121,8 +135,10 @@ a:hover{ opacity:.85 }
   object-fit:cover;
   display:block;
   border-radius:0;
-  transition:filter .25s ease;
+  transition: filter .25s ease;
 }
+
+/* label centered, only text */
 .tile .label{
   position:absolute;
   top:50%; left:50%;
@@ -132,14 +148,15 @@ a:hover{ opacity:.85 }
   color:#fff;
   z-index:2;
   opacity:0;
-  transition:opacity .2s;
+  transition:opacity .2s ease;
 }
+
 .tile:hover img{ filter:brightness(40%); }
 .tile:hover .label{ opacity:1; }
 
-/* ==============================
-   CV list — flush left (no bullets)
-   ============================== */
+/* =========================================================
+   CV — flush lists (no bullets)
+   ========================================================= */
 .cv-list{
   list-style:none;
   padding-left:0;
@@ -150,38 +167,39 @@ a:hover{ opacity:.85 }
   color:var(--muted);
 }
 
-/* ==============================
-   Work page header block
-   ============================== */
-.project-head{ margin:10px 0 18px; }
+/* =========================================================
+   WORK PAGES — header block
+   ========================================================= */
+.project-head{ margin: 10px 0 18px; }
 
 .project-title{
-  font-size:clamp(28px,4vw,40px);
-  line-height:1.1;
-  margin:0;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.1;
+  margin: 0;
 }
+/* No italics for the // CNA (Series) part */
 .project-title em{
-  font-style:normal; /* no italics */
-  font-weight:400;
-  opacity:.85;
+  font-style: normal;
+  font-weight: 400;
+  opacity: .85;
 }
 
 .project-meta{
-  margin-top:8px;
-  color:var(--muted);
-  font-size:clamp(16px,1.6vw,22px);
-  letter-spacing:.02em;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: clamp(16px, 1.6vw, 22px);
+  letter-spacing: .02em;
 }
 .project-roles{
-  margin-top:12px;
-  font-weight:600;
-  letter-spacing:.02em;
-  font-size:clamp(18px,1.8vw,26px);
+  margin-top: 12px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  font-size: clamp(18px, 1.8vw, 26px);
 }
 
-/* ==============================
-   Hero media
-   ============================== */
+/* =========================================================
+   HERO MEDIA — image/video/Plyr
+   ========================================================= */
 .project-hero img,
 .project-hero video,
 .project-hero .plyr,
@@ -193,21 +211,19 @@ a:hover{ opacity:.85 }
   margin:8px 0 16px;
 }
 
-/* Work pages a touch wider (desktop) */
-@media (min-width:900px){
-  .container.narrow{ max-width:1200px; }
-}
-
-/* Phone fix */
+/* Phone sanity */
 @media (max-width:640px){
   .project-hero video,
   .project-hero .plyr,
-  .project-hero .plyr--video{ width:100%; margin-left:0; }
+  .project-hero .plyr--video{
+    width:100%;
+    margin-left:0;
+  }
 }
 
-/* ==============================
-   Stills grid
-   ============================== */
+/* =========================================================
+   OPTIONAL STILLS GRID (if you use it later)
+   ========================================================= */
 .stills{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
@@ -221,9 +237,9 @@ a:hover{ opacity:.85 }
   border-radius:8px;
 }
 
-/* ==============================
-   Project pagination
-   ============================== */
+/* =========================================================
+   PROJECT PAGINATION (Prev/Next)
+   ========================================================= */
 .project-nav{
   display:flex;
   justify-content:space-between;
@@ -235,13 +251,15 @@ a:hover{ opacity:.85 }
   font-weight:700;
   border-radius:4px;
   color:#fff;
-  transition:background-color .3s;
+  transition:background-color .3s ease;
 }
-.project-nav a:hover{ background-color:rgba(255,255,255,0.3); }
+.project-nav a:hover{
+  background-color:rgba(255,255,255,0.3);
+}
 
-/* ==============================
-   Footer
-   ============================== */
+/* =========================================================
+   FOOTER — centered social icons
+   ========================================================= */
 .site-footer{
   border-top:1px solid #222;
   padding:20px 24px;
@@ -257,54 +275,6 @@ a:hover{ opacity:.85 }
 .site-footer .social a{
   font-size:36px;
   color:var(--fg);
-  transition:opacity .2s ease;
+  transition: opacity .2s ease;
 }
 .site-footer .social a:hover{ opacity:.8 }
-
-/* === HEADER FIX: brand left, nav right, shared width for name/tagline === */
-
-/* Use grid so left (brand-group) and right (nav) pin to edges */
-.site-header{
-  display: grid;
-  grid-template-columns: auto 1fr auto; /* [brand] [fill] [nav] */
-  align-items: center;
-  gap: 28px;
-}
-
-/* Make brand & tagline live in a one-column inline grid.
-   The column takes the width of the *widest* row (the tagline),
-   then we stretch both rows to that same width. */
-.brand-group{
-  display: inline-grid;
-  grid-auto-flow: row;      /* one column, multiple rows */
-  justify-items: stretch;   /* stretch rows to the column width */
-  align-items: start;
-  width: max-content;       /* shrink-wrap to widest row */
-  min-width: 0;
-}
-
-/* Both rows occupy that shared column width */
-.brand,
-.tagline{
-  width: 100%;
-  text-align: left;
-  margin: 0;
-}
-
-/* Tune letter spacing here (these two lines are your “knobs”) */
-.brand   { letter-spacing: 0.02em; font-size: clamp(24px, 3.2vw, 34px); line-height: 1; }
-.tagline { letter-spacing: 0.18em; font-size: clamp(12px, 1.6vw, 16px); white-space: nowrap; }
-
-/* Keep nav pinned to the far right */
-.nav{
-  justify-self: end;
-  display: flex;
-  gap: 24px;
-  white-space: nowrap;
-}
-
-/* Small screens: stack nav under brand, left-aligned */
-@media (max-width: 560px){
-  .site-header{ grid-template-columns: 1fr; row-gap: 12px; }
-  .nav{ justify-self: start; }
-}
