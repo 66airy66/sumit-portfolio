@@ -152,16 +152,19 @@ a:hover{ opacity:.85 }
 }
 
 .project-meta {
-  margin-top: 6px;
+  margin-top: 8px;
   color: var(--muted);
-  font-size: 14px;
+  /* bigger, scales with viewport but stays sensible */
+  font-size: clamp(16px, 1.6vw, 22px);
   letter-spacing: .02em;
 }
 
 .project-roles {
-  margin-top: 10px;
+  margin-top: 12px;
   font-weight: 600;
   letter-spacing: .02em;
+  /* bigger than meta, also responsive */
+  font-size: clamp(18px, 1.8vw, 26px);
 }
 
 .project-hero img{
