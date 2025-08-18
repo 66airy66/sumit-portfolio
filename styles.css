@@ -12,33 +12,34 @@
 }
 
 /* Tokens */
-:root {
+:root{
   --bg:#000;
   --fg:#fff;
   --muted:#c6c6c6;
   --max:1100px;
 }
 
-* { box-sizing: border-box; }
-html, body { height: 100%; }
+*{ box-sizing:border-box }
+html,body{ height:100% }
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font-family: 'League Spartan', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'League Spartan', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size:16px;
+  line-height:1.5;
 }
 
-a { color: var(--fg); text-decoration: none; }
-a:hover { opacity: .85; }
+a{ color:var(--fg); text-decoration:none }
+a:hover{ opacity:.85 }
 
 /* ==============================
    Header
    ============================== */
 
-.site-header {
+/* Sticky bar */
+.site-header{
   position: sticky;
   top: 0;
   z-index: 10;
@@ -46,319 +47,285 @@ a:hover { opacity: .85; }
   padding: 20px 24px;
 }
 
-/* IMPORTANT: your markup has .header-inner; make it the grid */
-.site-header > .header-inner {
-  display: grid;
-  grid-template-columns: auto 1fr auto; /* brand | spacer | nav */
-  align-items: center;
-  gap: 28px;
+/* Your header HTML wraps content in .header-inner — make that the grid */
+.site-header > .header-inner{
+  display:grid;
+  grid-template-columns:auto 1fr auto; /* brand | spacer | nav */
+  align-items:center;
+  gap:28px;
 }
 
-/* Two-line brand block where the wider line (tagline) defines width */
-.brand-group {
-  display: inline-grid;      /* 1 column grid; rows share the same width */
-  grid-auto-flow: row;
-  justify-items: stretch;
-  align-items: start;
-  width: max-content;        /* shrink-wrap to widest row */
-  min-width: 0;
+/* Brand block: two rows that share width */
+.brand-group{
+  display:inline-grid;       /* one column, multiple rows */
+  grid-auto-flow:row;
+  justify-items:stretch;
+  align-items:start;
+  width:max-content;         /* shrink-wrap to widest row (tagline) */
+  min-width:0;
 }
 
 .brand,
-.tagline {
-  width: 100%;
-  text-align: left;
-  margin: 0;
+.tagline{
+  width:100%;
+  text-align:left;
+  margin:0;
 }
 
-.brand {
-  font-weight: 400;
-  letter-spacing: .02em;
-  font-size: clamp(24px, 3.2vw, 34px);
-  line-height: 1;
+.brand{
+  font-weight:400;
+  letter-spacing:.02em;
+  font-size:clamp(24px,3.2vw,34px);
+  line-height:1;
 }
 
-.tagline {
-  margin-top: 6px;
-  font-weight: 300;
-  color: var(--fg);
-  letter-spacing: .18em;     /* adjust if you want it wider/narrower */
-  font-size: clamp(12px, 1.6vw, 16px);
-  white-space: nowrap;       /* keeps the width stable */
+.tagline{
+  margin-top:6px;
+  font-weight:300;
+  color:var(--fg);
+  letter-spacing:.18em;
+  font-size:clamp(12px,1.6vw,16px);
+  white-space:nowrap;
 }
 
-/* Nav pinned hard-right */
-.nav {
-  justify-self: end;
-  display: flex;
-  gap: 24px;
-  white-space: nowrap;
+/* Nav right */
+.nav{
+  justify-self:end;
+  display:flex;
+  gap:24px;
+  white-space:nowrap;
 }
-.nav a { display: inline-block; }
-.nav .active { opacity: .6; }
+.nav a{ display:inline-block }
+.nav .active{ opacity:.6 }
 
-/* Small screens: stack nav under brand, left-aligned */
-@media (max-width: 560px) {
-  .site-header > .header-inner { grid-template-columns: 1fr; row-gap: 12px; }
-  .nav { justify-self: start; }
+/* ===== Phones: stack & center header ===== */
+@media (max-width:560px){
+  .site-header > .header-inner{
+    grid-template-columns:1fr;
+    justify-items:center;
+    row-gap:10px;
+  }
+  .brand-group{
+    justify-items:center;
+    text-align:center;
+    width:100%;
+  }
+  .brand,
+  .tagline{ text-align:center }
+  .nav{ justify-self:center }
 }
 
 /* ==============================
    Page containers
    ============================== */
-
-.container { max-width: var(--max); margin: 40px auto; padding: 0 24px; }
-.container.narrow { max-width: 1100px; }  /* work pages */
-.container.full { max-width: none; margin: 0; padding: 0; }
+.container{ max-width:var(--max); margin:40px auto; padding:0 24px }
+.container.narrow{ max-width:1100px }   /* work pages */
+.container.full{ max-width:none; margin:0; padding:0 }
 
 /* ==============================
    Index grid tiles
    ============================== */
-
-.grid {
-  display: flex;
-  flex-direction: column;  /* stack tiles */
-  gap: 0;
+.grid{
+  display:flex;
+  flex-direction:column; /* stacked like Carl Herse */
+  gap:0;
 }
 
-.tile { position: relative; }
-
-.tile img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  display: block;
-  border-radius: 0;
-  transition: filter .25s ease;
+.tile{ position:relative }
+.tile img{
+  width:100%;
+  height:auto;
+  object-fit:cover;
+  display:block;
+  border-radius:0;
+  transition:filter .25s ease;
 }
 
-.tile .label {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: 700;
-  font-size: 24px;
-  color: #fff;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity .2s;
+/* Over-image label */
+.tile .label{
+  position:absolute;
+  inset:auto 50% auto 50%;
+  transform:translate(-50%,-50%);
+  top:50%;
+  font-weight:700;
+  font-size:24px;
+  color:#fff;
+  z-index:2;
+  opacity:0;
+  transition:opacity .2s;
 }
+.tile:hover img{ filter:brightness(40%) }
+.tile:hover .label{ opacity:1 }
 
-/* On phone, center project titles inside tiles */
-@media (max-width: 640px) {
-  .tile .label {
-    text-align: center;
-    white-space: normal;   /* allow natural wrapping */
-    line-height: 1.3;      /* nicer spacing for 2–3 lines */
+/* Phone: nicer wrapping/centering for labels */
+@media (max-width:640px){
+  .tile .label{
+    text-align:center;
+    white-space:normal;
+    line-height:1.3;
   }
 }
-.tile:hover img { filter: brightness(40%); }
-.tile:hover .label { opacity: 1; }
 
 /* ==============================
    CV page
    ============================== */
-
-.cv-section h2 {
-  margin: 28px 0 14px;
-  font-weight: 700;
-  color: var(--fg);
-  font-size: clamp(22px, 2.2vw, 30px);
-  letter-spacing: .01em;
+.cv-section h2{
+  margin:28px 0 14px;
+  font-weight:700;
+  color:var(--fg);
+  font-size:clamp(22px,2.2vw,30px);
+  letter-spacing:.01em;
 }
 
-.cv-list {
-  list-style: none;
-  margin: 0;
-  padding-left: 0;
+.cv-list{
+  list-style:none;
+  margin:0;
+  padding-left:0;
 }
+.cv-list li{ margin:18px 0 22px }
 
-.cv-list li {
-  margin: 18px 0 22px;   /* spacing between entries */
+.cv-title{
+  color:var(--fg);
+  font-weight:800;
+  font-size:clamp(18px,2vw,26px);
+  line-height:1.25;
 }
-
-.cv-title {
-  color: var(--fg);
-  font-weight: 800;
-  font-size: clamp(18px, 2vw, 26px);
-  line-height: 1.25;
-}
-
-.cv-role {
-  color: var(--fg);
-  margin-top: 6px;
-  font-weight: 400;
-  font-size: clamp(16px, 1.7vw, 22px);
-  line-height: 1.35;
-  opacity: .95;          /* optional: softer than title */
-}
-
-/* ===== Connect page ===== */
-.connect-page {
-  text-align: center;
-  margin-top: 72px;
-}
-
-.connect-title {
-  font-size: clamp(36px, 7vw, 80px);
-  font-weight: 800;
-  margin: 0;                 /* no bottom gap here */
-  color: var(--fg);
-}
-
-/* Pull the shared footer (icons) up close under the title on this page */
-.connect-page + #site-footer {
-  margin-top: 10px;          /* tight spacing below title */
-  padding-top: 10px;         /* small breathing room */
-  border-top: none;          /* no divider line here */
-}
-
-/* Make the footer icons a bit larger on the connect page */
-.connect-page + #site-footer .social {
-  gap: 24px;                 /* room between icons */
-}
-
-.connect-page + #site-footer .social a {
-  font-size: 44px;           /* bigger icons just for this page */
+.cv-role{
+  color:var(--fg);
+  margin-top:6px;
+  font-weight:400;
+  font-size:clamp(16px,1.7vw,22px);
+  line-height:1.35;
+  opacity:.95;
 }
 
 /* ==============================
    Work page header (per-project)
    ============================== */
+.project-head{ margin:10px 0 18px }
 
-.project-head { margin: 10px 0 18px; }
-
-.project-title {
-  font-size: clamp(28px, 4vw, 40px);
-  line-height: 1.1;
-  margin: 0;
+.project-title{
+  font-size:clamp(28px,4vw,40px);
+  line-height:1.1;
+  margin:0;
 }
-.project-title em {
-  font-style: normal;   /* no italics */
-  font-weight: 400;
-  opacity: 1;
-  color: var(--fg);
+.project-title em{
+  font-style:normal;   /* no italics */
+  font-weight:400;
+  opacity:1;
+  color:var(--fg);
 }
 
-.project-meta {
-  margin-top: 8px;
-  color: var(--fg);
-  font-size: clamp(16px, 1.6vw, 22px);
-  letter-spacing: .02em;
+.project-meta{
+  margin-top:8px;
+  color:var(--fg);
+  font-size:clamp(16px,1.6vw,22px);
+  letter-spacing:.02em;
 }
-.project-roles {
-  margin-top: 12px;
-  font-weight: 600;
-  letter-spacing: .02em;
-  font-size: clamp(18px, 1.8vw, 26px);
-  color: var(--fg);
+.project-roles{
+  margin-top:12px;
+  font-weight:600;
+  letter-spacing:.02em;
+  font-size:clamp(18px,1.8vw,26px);
+  color:var(--fg);
 }
 
 /* ==============================
    Hero media (image/video)
    ============================== */
-
 .project-hero img,
 .project-hero video,
 .project-hero .plyr,
-.project-hero .plyr--video {
-  width: 100%;
-  max-width: 100%;
-  border-radius: 12px;
-  display: block;
-  margin: 8px 0 16px;
+.project-hero .plyr--video{
+  width:100%;
+  max-width:100%;
+  border-radius:12px;
+  display:block;
+  margin:8px 0 16px;
 }
 
-/* Slightly wider work pages on desktop */
-@media (min-width: 900px) {
-  .container.narrow { max-width: 1200px; }
+/* Wider work pages on desktop */
+@media (min-width:900px){
+  .container.narrow{ max-width:1200px }
 }
 
-/* Phone sanity */
-@media (max-width: 640px) {
+/* Phone sanity for videos */
+@media (max-width:640px){
   .project-hero video,
   .project-hero .plyr,
-  .project-hero .plyr--video {
-    width: 100%;
-    margin-left: 0;
+  .project-hero .plyr--video{
+    width:100%;
+    margin-left:0;
   }
 }
 
 /* ==============================
    Project pagination
    ============================== */
+.project-nav{
+  display:flex;
+  justify-content:space-between;
+  margin-top:2rem;
+}
+.project-nav a{
+  background-color:rgba(255,255,255,.1);
+  padding:.5rem 1rem;
+  font-weight:700;
+  border-radius:4px;
+  color:#fff;
+  transition:background-color .3s;
+}
+.project-nav a:hover{ background-color:rgba(255,255,255,.3) }
 
-.project-nav {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 2rem;
+/* ==============================
+   Connect page (uses footer icons)
+   ============================== */
+.connect-page{
+  text-align:center;
+  margin-top:72px;
 }
-.project-nav a {
-  background-color: rgba(255,255,255,0.1);
-  padding: .5rem 1rem;
-  font-weight: 700;
-  border-radius: 4px;
-  color: #fff;
-  transition: background-color .3s;
+.connect-title{
+  font-size:clamp(36px,7vw,80px);
+  font-weight:800;
+  margin:0;
+  color:var(--fg);
 }
-.project-nav a:hover {
-  background-color: rgba(255,255,255,0.3);
+
+/* Pull the shared footer up and remove its divider */
+.connect-page + #site-footer{
+  margin-top:10px;
+  padding-top:10px;
+  border-top:none;
+}
+.connect-page + #site-footer .social{ gap:24px }
+.connect-page + #site-footer .social a{ font-size:44px }
+
+/* Mobile tweaks for connect */
+@media (max-width:560px){
+  .connect-page{ margin-top:56px }
+  .connect-page + #site-footer .social{ gap:20px }
+  .connect-page + #site-footer .social a{ font-size:40px }
 }
 
 /* ==============================
-   Footer
+   Footer (shared)
    ============================== */
-
-.site-footer {
-  border-top: none;
-  padding: 12px 24px;
-  margin-top: 20px;
-  text-align: center;
+.site-footer{
+  border-top:none;
+  padding:12px 24px;
+  margin-top:20px;
+  text-align:center;
 }
-.site-footer .social {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  flex-wrap: wrap;
-  margin-top: 8px;
+.site-footer .social{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-top:8px;
 }
-.site-footer .social a {
-  font-size: 36px;
-  color: var(--fg);
-  transition: opacity .2s ease;
+.site-footer .social a{
+  font-size:36px;
+  color:var(--fg);
+  transition:opacity .2s ease;
 }
-.site-footer .social a:hover { opacity: .8; }
-
-/* ==============================
-   Mobile centering for header + project pages
-   ============================== */
-/* ==============================
-   Mobile: center brand + tagline vertically
-   ============================== */
-@media (max-width: 560px) {
-  body.homepage {   /* apply only if you add "homepage" class to <body> */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;   /* take full screen height */
-    text-align: center;
-  }
-
-  body.homepage .site-header {
-    position: static;   /* remove sticky so it can float in center */
-    background: none;   /* optional: remove background */
-    padding: 0;
-  }
-
-  body.homepage .header-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-
-  body.homepage .nav {
-    justify-content: center;
-  }
-}
+.site-footer .social a:hover{ opacity:.8 }
