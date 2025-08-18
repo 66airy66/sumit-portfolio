@@ -31,29 +31,26 @@ a:hover{ opacity:.85 }
 }
 
 /* Name + tagline stacked and centered */
-.brand-group{
+.brand-group {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: max-content;   /* shrink-wrap to the widest child (the tagline) */
+  margin: 0 auto;       /* center the block in the header */
 }
 
-/* Name (not bold) */
-.brand {
-  font-weight: 400;
-  font-size: 34px;         /* bump it up slightly */
-  letter-spacing: 0.08em;  /* spread letters out */
-  text-align: center;
-  display: block;
-}
-
-/* Tagline centered under name */
+.brand,
 .tagline {
-  margin-top: 4px;
-  font-weight: 300;
-  font-size: 14px;
-  letter-spacing: .12em;
-  color: var(--muted);
+  width: 100%;          /* both share the same width */
   text-align: center;
+}
+
+.tagline {
+  white-space: nowrap;  /* prevents wrapping so it defines the width cleanly */
+  letter-spacing: 0.12em;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--muted);
 }
 
 /* Nav pinned right, no wrapping */
