@@ -180,7 +180,7 @@ a:hover { opacity: .85; }
 
 .project-meta {
   margin-top: 8px;
-  color: var(--muted);
+  color: var(--fg);
   font-size: clamp(16px, 1.6vw, 22px);
   letter-spacing: .02em;
 }
