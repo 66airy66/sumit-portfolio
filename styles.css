@@ -157,8 +157,10 @@ a:hover { opacity: .85; }
   margin: 0;
 }
 .cv-list li {
-  margin: .35rem 0;
+  margin: .5rem 0;
   color: var(--muted);
+  font-size: 20px;
+  line-height: 1.6;
 }
 
 /* ==============================
