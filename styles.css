@@ -40,11 +40,10 @@ a:hover{ opacity:.85 }
 /* Name (not bold) */
 .brand {
   font-weight: 400;
-  letter-spacing: .02em;
-  font-size: 28px;
-  line-height: 1;
+  font-size: 34px;         /* bump it up slightly */
+  letter-spacing: 0.08em;  /* spread letters out */
+  text-align: center;
   display: block;
-  text-align: center; /* ensures text is centered */
 }
 
 /* Tagline centered under name */
