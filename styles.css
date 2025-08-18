@@ -332,28 +332,33 @@ a:hover { opacity: .85; }
 /* ==============================
    Mobile centering for header + project pages
    ============================== */
+/* ==============================
+   Mobile: center brand + tagline vertically
+   ============================== */
 @media (max-width: 560px) {
-  /* Brand block (Sumit M Pujar + tagline in header) */
-  .brand-group {
-    justify-items: center;
-    text-align: center;
-  }
-  .brand,
-  .tagline {
+  body.homepage {   /* apply only if you add "homepage" class to <body> */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;   /* take full screen height */
     text-align: center;
   }
 
-  /* Project header text */
-  .project-head {
-    text-align: center;
+  body.homepage .site-header {
+    position: static;   /* remove sticky so it can float in center */
+    background: none;   /* optional: remove background */
+    padding: 0;
   }
-  .project-title {
-    text-align: center;
+
+  body.homepage .header-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
   }
-  .project-meta {
-    text-align: center;
-  }
-  .project-roles {
-    text-align: center;
+
+  body.homepage .nav {
+    justify-content: center;
   }
 }
