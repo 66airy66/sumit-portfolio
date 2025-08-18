@@ -194,6 +194,60 @@ a:hover { opacity: .85; }
 }
 
 /* ==============================
+   Connect page
+   ============================== */
+.connect {
+  min-height: 70vh;                 /* centers nicely without fighting header/footer */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+}
+
+.connect-title {
+  font-size: clamp(36px, 6vw, 72px); /* big, responsive heading */
+  margin: 0;
+}
+
+.connect .links {
+  list-style: none;
+  margin: 0;
+  padding: 10px 16px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  background: rgba(255,255,255,.08); /* subtle pill behind links */
+  border-radius: 10px;
+}
+
+.connect .links li { margin: 0; }
+
+.connect .links a {
+  color: var(--fg);
+  font-size: clamp(18px, 2.4vw, 24px);
+  font-weight: 600;
+  letter-spacing: .03em;
+  display: inline-block;
+  padding: 6px 8px;                 /* touch-friendly */
+  border-radius: 6px;
+  transition: opacity .2s ease;
+}
+.connect .links a:hover { opacity: .85; }
+
+/* Tighten on small screens */
+@media (max-width: 640px) {
+  .connect {
+    gap: 20px;
+  }
+  .connect .links {
+    gap: 14px;
+    padding: 8px 12px;
+  }
+}
+
+/* ==============================
    Work page header (per-project)
    ============================== */
 
