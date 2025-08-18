@@ -158,12 +158,16 @@ a:hover{ opacity:.85 }
 .tile:hover .label{ opacity:1 }
 
 /* Phone: nicer wrapping/centering for labels */
-@media (max-width:640px){
-  .tile .label{
-    text-align:center;
-    white-space:normal;
-    line-height:1.3;
+@media (max-width: 640px) {
+  .homepage .tile .label {
+    text-align: center;
+    white-space: normal;    /* let it wrap */
+    line-height: 1.25;      /* tighter stack */
+    max-width: 14ch;        /* keeps lines balanced */
+    margin: 0 auto;         /* center block */
+    text-wrap: balance;     /* modern browsers balance wrapping */
   }
+}
 }
 
 /* ==============================
