@@ -175,7 +175,8 @@ a:hover { opacity: .85; }
 .project-title em {
   font-style: normal;   /* no italics */
   font-weight: 400;
-  opacity: .85;
+  opacity: 1;
+  color: var(--fg);
 }
 
 .project-meta {
