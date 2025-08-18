@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>No Screen, No Life? — Sumit M Pujar</title>
   <link rel="stylesheet" href="../styles.css" />
+  <!-- Load shared video player styles/scripts for all work pages -->
   <script src="../scripts/include-work-head.js"></script>
 </head>
 <body>
@@ -13,8 +14,17 @@
   <script src="../scripts/include-header.js" defer></script>
 
   <main class="container narrow">
-    <h1>No Screen, No Life?</h1>
-    <p class="muted">YEAR • ROLE • Short logline or blurb here.</p>
+
+    <!-- Project header (consistent) -->
+    <div class="project-head">
+      <h1 class="project-title">
+        No Screen, No Life? <em>// CNA</em>
+      </h1>
+      <div class="project-meta">
+        Singapore’s authorities are looking to curb teens’ excessive screen time usage. But how bad is their screen time? We conduct a national survey to find out and put 5 teens through a digital detox to see how they cope. 
+      </div>
+      <div class="project-roles">Assistant Producer</div>
+    </div>
 
     <!-- Hero video -->
     <div class="project-hero">
@@ -22,7 +32,6 @@
         controls
         preload="metadata"
         playsinline
-        style="width:100%; height:auto; border-radius:12px; display:block;"
         poster="../images/4-no-screen-no-life/4. No Screen, No Life.jpg">
         <source src="../images/4-no-screen-no-life/4. No Screen, No Life.mp4" type="video/mp4" />
         Your browser does not support HTML5 video.
@@ -32,7 +41,7 @@
 
     <!-- Project navigation -->
     <div class="project-nav">
-      <a class="prev" href="3-singapore's-public-housing-revealed.html">&#10094; Prev</a>
+      <a class="prev" href="3-singapore-public-housing.html">&#10094; Prev</a>
       <a class="next" href="5-butterfly.html">Next &#10095;</a>
     </div>
   </main>
