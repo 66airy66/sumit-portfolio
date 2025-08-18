@@ -13,7 +13,7 @@
   --bg:#000;
   --fg:#fff;
   --muted:#c6c6c6;
-  --max:1100px;               /* main content width */
+  --max:1100px;         /* main content width */
 }
 
 *{ box-sizing:border-box }
@@ -32,38 +32,32 @@ a{ color:var(--fg); text-decoration:none }
 a:hover{ opacity:.85 }
 
 /* =========================
-   Site Header (left brand, right nav)
+   Header (brand left, nav right)
 ========================= */
 .site-header{
-  position: sticky; top: 0; z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 10;
   background: rgba(0,0,0,.9);
-  padding: 20px 24px;                 /* matches page side padding */
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   /* left/right edges */
 }
 
-/* row that aligns to page width */
-.header-inner{
-  max-width: var(--max);
-  margin: 0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:24px;
-}
-
-/* brand block (left) */
 .brand-group{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;           /* left align text */
 }
 
 .brand{
   display:block;
+  text-align:left;
   font-weight:400;
   letter-spacing:.02em;
   font-size:28px;
   line-height:1;
-  text-align:left;
 }
 
 .tagline{
@@ -73,12 +67,15 @@ a:hover{ opacity:.85 }
   font-weight:300;
   color:var(--muted);
   text-align:left;
+  margin-top:4px;
 }
 
-/* nav (right) */
 .nav{
-  display:flex; align-items:center;
-  gap:18px; white-space:nowrap;
+  margin-left:auto;                   /* push to right edge */
+  display:flex;
+  gap:18px;
+  align-items:center;
+  white-space:nowrap;
 }
 .nav a{ display:inline-block }
 .nav .active{ opacity:.6 }
@@ -91,29 +88,20 @@ a:hover{ opacity:.85 }
 /* =========================
    Containers
 ========================= */
-.container{
-  max-width:var(--max);
-  margin:40px auto;
-  padding:0 24px;
-}
-.container.narrow{ max-width:1100px }  /* you can adjust globally here */
-.container.full{
-  max-width:none;
-  margin:0;
-  padding:0;
-}
+.container{ max-width:var(--max); margin:40px auto; padding:0 24px }
+.container.narrow{ max-width:1100px }
+.container.full{ max-width:none; margin:0; padding:0 }
 
 /* =========================
-   Index grid / Tiles (Carl style)
+   Index Grid / Tiles
 ========================= */
 .grid{
   display:flex;
-  flex-direction:column;  /* stacked */
-  gap:0;                  /* flush edges */
+  flex-direction:column; /* stacked like Carl Herse */
+  gap:0;
 }
 
 .tile{ position:relative }
-
 .tile img{
   width:100%;
   height:auto;
@@ -123,13 +111,12 @@ a:hover{ opacity:.85 }
   transition:filter .25s ease;
 }
 
-/* centered label */
+/* centered label, no box */
 .tile .label{
-  position:absolute;
+  position:absolute; inset:auto;
   top:50%; left:50%;
   transform:translate(-50%,-50%);
-  font-weight:700;
-  font-size:24px;
+  font-weight:700; font-size:24px;
   color:#fff;
   z-index:2;
   opacity:0;
@@ -140,27 +127,17 @@ a:hover{ opacity:.85 }
 .tile:hover .label{ opacity:1 }
 
 /* =========================
-   CV list (flush, no bullets)
-========================= */
-.cv-list{
-  list-style:none;
-  padding-left:0;
-  margin:0;
-}
-.cv-list li{ margin:.35rem 0; color:var(--muted) }
-
-/* =========================
-   Work page header block
+   Work page heading block
 ========================= */
 .project-head{ margin:10px 0 18px }
 
 .project-title{
-  font-size:clamp(28px,4vw,40px);
-  line-height:1.1;
   margin:0;
+  line-height:1.1;
+  font-size:clamp(28px, 4vw, 40px);
 }
 
-/* make the // CNA (Series) NOT italic and slightly lighter */
+/* remove italics; keep lighter look */
 .project-title em{
   font-style:normal;
   font-weight:400;
@@ -170,22 +147,30 @@ a:hover{ opacity:.85 }
 .project-meta{
   margin-top:8px;
   color:var(--muted);
-  font-size:clamp(16px,1.6vw,22px);   /* bigger + responsive */
   letter-spacing:.02em;
+  font-size:clamp(16px, 1.6vw, 22px);
 }
 
 .project-roles{
   margin-top:12px;
   font-weight:600;
   letter-spacing:.02em;
-  font-size:clamp(18px,1.8vw,26px);   /* bigger + responsive */
+  font-size:clamp(18px, 1.8vw, 26px);
 }
 
 /* =========================
-   Project hero media (video/img)
+   Hero media (image/video)
 ========================= */
+.project-hero img{
+  width:100%;
+  height:auto;
+  border-radius:12px;
+  display:block;
+  margin:8px 0 16px;
+}
+
+/* Plyr/video sizing */
 .project-hero video,
-.project-hero img,
 .project-hero .plyr--video{
   width:100%;
   max-width:100%;
@@ -194,14 +179,16 @@ a:hover{ opacity:.85 }
   margin:8px 0 16px;
 }
 
-/* Mobile sanity */
 @media (max-width:640px){
   .project-hero video,
-  .project-hero .plyr--video{ width:100% }
+  .project-hero .plyr--video{
+    width:100%;
+    margin-left:0;
+  }
 }
 
 /* =========================
-   Optional stills grid (if used)
+   Optional stills grid (kept for future)
 ========================= */
 .stills{
   display:grid;
@@ -217,17 +204,23 @@ a:hover{ opacity:.85 }
 }
 
 /* =========================
-   Project navigation (Prev / Next)
+   CV list (flush, no bullets)
+========================= */
+.cv-list{ list-style:none; padding-left:0; margin:0 }
+.cv-list li{ margin:.35rem 0; color:var(--muted) }
+
+/* =========================
+   Project navigation
 ========================= */
 .project-nav{
   display:flex;
   justify-content:space-between;
   margin-top:2rem;
 }
+
 .project-nav a{
   background-color:rgba(255,255,255,.1);
   padding:.5rem 1rem;
-  text-decoration:none;
   font-weight:700;
   border-radius:4px;
   color:#fff;
@@ -236,7 +229,7 @@ a:hover{ opacity:.85 }
 .project-nav a:hover{ background-color:rgba(255,255,255,.3) }
 
 /* =========================
-   Footer
+   Footer (icons centered)
 ========================= */
 .site-footer{
   border-top:1px solid #222;
@@ -244,14 +237,16 @@ a:hover{ opacity:.85 }
   margin-top:40px;
   text-align:center;
 }
+
 .site-footer .social{
   display:flex;
   justify-content:center;
   gap:18px;
   flex-wrap:wrap;
 }
+
 .site-footer .social a{
-  font-size:36px;          /* icon size */
+  font-size:36px;
   color:var(--fg);
   transition:opacity .2s ease;
 }
