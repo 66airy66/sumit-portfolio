@@ -3,12 +3,12 @@
    ============================== */
 
 /* Font */
-@font-face { 
-  font-family: 'League Spartan';
-  src: url('fonts/LeagueSpartan-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
+@font-face{
+  font-family:'League Spartan';
+  src:url('fonts/LeagueSpartan-VariableFont_wght.ttf') format('truetype');
+  font-weight:100 900;
+  font-style:normal;
+  font-display:swap;
 }
 
 /* Tokens */
@@ -19,8 +19,8 @@
   --max:1100px;
 }
 
-*{ box-sizing:border-box }
-html,body{ height:100% }
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
 
 body{
   margin:0;
@@ -31,8 +31,8 @@ body{
   line-height:1.5;
 }
 
-a{ color:var(--fg); text-decoration:none }
-a:hover{ opacity:.85 }
+a{ color:var(--fg); text-decoration:none; }
+a:hover{ opacity:.85; }
 
 /* ==============================
    Header
@@ -40,14 +40,14 @@ a:hover{ opacity:.85 }
 
 /* Sticky bar */
 .site-header{
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(0,0,0,.9);
-  padding: 20px 24px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(0,0,0,.9);
+  padding:20px 24px;
 }
 
-/* Your header HTML wraps content in .header-inner — make that the grid */
+/* Your header markup uses .header-inner */
 .site-header > .header-inner{
   display:grid;
   grid-template-columns:auto 1fr auto; /* brand | spacer | nav */
@@ -55,7 +55,7 @@ a:hover{ opacity:.85 }
   gap:28px;
 }
 
-/* Brand block: two rows that share width */
+/* Brand block: two rows share width */
 .brand-group{
   display:inline-grid;       /* one column, multiple rows */
   grid-auto-flow:row;
@@ -95,10 +95,10 @@ a:hover{ opacity:.85 }
   gap:24px;
   white-space:nowrap;
 }
-.nav a{ display:inline-block }
-.nav .active{ opacity:.6 }
+.nav a{ display:inline-block; }
+.nav .active{ opacity:.6; }
 
-/* ===== Phones: stack & center header ===== */
+/* Phones: stack & center header */
 @media (max-width:560px){
   .site-header > .header-inner{
     grid-template-columns:1fr;
@@ -111,27 +111,27 @@ a:hover{ opacity:.85 }
     width:100%;
   }
   .brand,
-  .tagline{ text-align:center }
-  .nav{ justify-self:center }
+  .tagline{ text-align:center; }
+  .nav{ justify-self:center; }
 }
 
 /* ==============================
    Page containers
    ============================== */
-.container{ max-width:var(--max); margin:40px auto; padding:0 24px }
-.container.narrow{ max-width:1100px }   /* work pages */
-.container.full{ max-width:none; margin:0; padding:0 }
+.container{ max-width:var(--max); margin:40px auto; padding:0 24px; }
+.container.narrow{ max-width:1100px; }   /* work pages */
+.container.full{ max-width:none; margin:0; padding:0; }
 
 /* ==============================
    Index grid tiles
    ============================== */
 .grid{
   display:flex;
-  flex-direction:column; /* stacked like Carl Herse */
+  flex-direction:column; /* stacked */
   gap:0;
 }
 
-.tile{ position:relative }
+.tile{ position:relative; }
 .tile img{
   width:100%;
   height:auto;
@@ -141,34 +141,37 @@ a:hover{ opacity:.85 }
   transition:filter .25s ease;
 }
 
-/* Over-image label */
+/* Over-image label (DESKTOP baseline) */
 .tile .label{
   position:absolute;
-  inset:auto 50% auto 50%;
+  top:50%; left:50%;
   transform:translate(-50%,-50%);
-  top:50%;
   font-weight:700;
   font-size:24px;
   color:#fff;
   z-index:2;
   opacity:0;
   transition:opacity .2s;
-}
-.tile:hover img{ filter:brightness(40%) }
-.tile:hover .label{ opacity:1 }
 
-/* Phone: nicer wrapping/centering for labels */
-@media (max-width: 640px) {
-  .homepage .tile .label {
-    text-align: center;
-    white-space: normal;    /* let it wrap */
-    line-height: 1.25;      /* tighter stack */
-    max-width: 14ch;        /* keeps lines balanced */
-    margin: 0 auto;         /* center block */
-    text-wrap: balance;     /* modern browsers balance wrapping */
+  /* keep desktop single-line behavior */
+  white-space:nowrap;
+  max-width:none;
+  text-align:center;
+}
+.tile:hover img{ filter:brightness(40%); }
+.tile:hover .label{ opacity:1; }
+
+/* Phone: nicer wrapping/centering for labels (homepage only) */
+@media (max-width:640px){
+  .homepage .tile .label{
+    text-align:center;
+    white-space:normal;     /* let it wrap */
+    line-height:1.25;       /* tighter stack */
+    max-width:14ch;         /* balanced column width */
+    margin:0 auto;
+    text-wrap:balance;      /* modern browsers */
   }
 }
-
 
 /* ==============================
    CV page
@@ -186,7 +189,7 @@ a:hover{ opacity:.85 }
   margin:0;
   padding-left:0;
 }
-.cv-list li{ margin:18px 0 22px }
+.cv-list li{ margin:18px 0 22px; }
 
 .cv-title{
   color:var(--fg);
@@ -206,7 +209,7 @@ a:hover{ opacity:.85 }
 /* ==============================
    Work page header (per-project)
    ============================== */
-.project-head{ margin:10px 0 18px }
+.project-head{ margin:10px 0 18px; }
 
 .project-title{
   font-size:clamp(28px,4vw,40px);
@@ -250,7 +253,7 @@ a:hover{ opacity:.85 }
 
 /* Wider work pages on desktop */
 @media (min-width:900px){
-  .container.narrow{ max-width:1200px }
+  .container.narrow{ max-width:1200px; }
 }
 
 /* Phone sanity for videos */
@@ -279,7 +282,7 @@ a:hover{ opacity:.85 }
   color:#fff;
   transition:background-color .3s;
 }
-.project-nav a:hover{ background-color:rgba(255,255,255,.3) }
+.project-nav a:hover{ background-color:rgba(255,255,255,.3); }
 
 /* ==============================
    Connect page (uses footer icons)
@@ -301,14 +304,14 @@ a:hover{ opacity:.85 }
   padding-top:10px;
   border-top:none;
 }
-.connect-page + #site-footer .social{ gap:24px }
-.connect-page + #site-footer .social a{ font-size:44px }
+.connect-page + #site-footer .social{ gap:24px; }
+.connect-page + #site-footer .social a{ font-size:44px; }
 
 /* Mobile tweaks for connect */
 @media (max-width:560px){
-  .connect-page{ margin-top:56px }
-  .connect-page + #site-footer .social{ gap:20px }
-  .connect-page + #site-footer .social a{ font-size:40px }
+  .connect-page{ margin-top:56px; }
+  .connect-page + #site-footer .social{ gap:20px; }
+  .connect-page + #site-footer .social a{ font-size:40px; }
 }
 
 /* ==============================
@@ -332,4 +335,4 @@ a:hover{ opacity:.85 }
   color:var(--fg);
   transition:opacity .2s ease;
 }
-.site-footer .social a:hover{ opacity:.8 }
+.site-footer .social a:hover{ opacity:.8; }
