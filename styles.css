@@ -81,7 +81,7 @@ a:hover { opacity: .85; }
 .tagline {
   margin-top: 6px;
   font-weight: 300;
-  color: var(--muted);
+  color: var(--fg);
   letter-spacing: .18em;     /* adjust if you want it wider/narrower */
   font-size: clamp(12px, 1.6vw, 16px);
   white-space: nowrap;       /* keeps the width stable */
