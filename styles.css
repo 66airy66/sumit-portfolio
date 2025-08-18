@@ -1,7 +1,7 @@
 /* ==============================
    Base & tokens
    ============================== */
-@font-face { 
+@font-face {
   font-family: 'League Spartan';
   src: url('fonts/LeagueSpartan-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 900;
@@ -13,7 +13,7 @@
   --bg:#000;
   --fg:#fff;
   --muted:#c6c6c6;
-  --max:1100px;           /* default content max width */
+  --max:1100px;                 /* default content width */
 }
 
 *{ box-sizing:border-box }
@@ -41,41 +41,41 @@ a:hover{ opacity:.85 }
   background: rgba(0,0,0,.9);
   padding: 20px 24px;
 
-  /* two columns: brand | nav */
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto;  /* brand | nav */
   align-items: center;
   column-gap: 24px;
 }
 
-/* Brand block uses a single-column grid so both rows share the same width
-   (the width of the wider line — your tagline). */
+/* Brand block: two rows that share the same column,
+   left-aligned. The block is shrink-wrapped to the
+   wider line (usually the tagline). */
 .brand-group{
   display: inline-grid;
-  grid-auto-flow: row;       /* 1 column, multiple rows */
-  justify-items: start;      /* left-align text inside */
-  align-items: center;
-  width: max-content;        /* shrink-wrap to its widest child (the tagline) */
-  min-width: 0;
+  grid-auto-flow: row;
+  justify-items: start;
+  width: max-content;           /* shrink to content */
 }
 
-/* Make both lines occupy that same column width */
+/* Both lines occupy that column */
 .brand,
 .tagline{
-  width: 100%;
-  text-align: left;
+  display:block;
+  text-align:left;
+  width:auto;                   /* JS can override width on .brand if exact match desired */
 }
 
+/* Name */
 .brand{
   font-weight: 400;
   letter-spacing: .02em;
   font-size: 28px;
   line-height: 1;
-  display: block;
 }
 
+/* Tagline */
 .tagline{
-  white-space: nowrap;       /* keeps it one line so it defines the width */
+  white-space: nowrap;
   letter-spacing: .12em;
   font-size: 14px;
   font-weight: 300;
@@ -83,7 +83,7 @@ a:hover{ opacity:.85 }
   margin-top: 4px;
 }
 
-/* Nav pinned to the far right, single line */
+/* Nav pinned to the far right */
 .nav{
   justify-self: end;
   display:flex;
@@ -94,13 +94,13 @@ a:hover{ opacity:.85 }
 .nav a{ display:inline-block; }
 .nav .active{ opacity:.6 }
 
-/* Size bumps for desktop */
+/* Header sizes on larger screens */
 @media (min-width: 900px){
   .brand{ font-size: 34px; }
   .tagline{ font-size: 16px; }
 }
 
-/* Optional: on very small screens, stack nav under brand, left-aligned */
+/* Optional: stack nav below brand on small screens */
 @media (max-width: 560px){
   .site-header{ grid-template-columns: 1fr; row-gap: 12px; }
   .nav{ justify-self: start; }
@@ -110,88 +110,92 @@ a:hover{ opacity:.85 }
    Page containers
    ============================== */
 .container{ max-width:var(--max); margin:40px auto; padding:0 24px }
-.container.narrow{ max-width:1100px } /* work pages default */
-.container.full { max-width: none; margin: 0; padding: 0 }
+.container.narrow{ max-width:1100px }     /* work page default */
+.container.full   { max-width:none; margin:0; padding:0 }
+
+/* Give work pages a touch more width on desktop (not edge-to-edge) */
+@media (min-width: 900px){
+  .container.narrow{ max-width:1200px; }
+}
 
 /* ==============================
-   Index grid tiles
+   Index grid (full-width tiles)
    ============================== */
 .grid{
-  display: flex;
-  flex-direction: column;     /* stack full-width tiles like Carl Herse */
-  gap: 0;
+  display:flex;
+  flex-direction:column;
+  gap:0;
 }
 
-.tile{ position: relative; }
+.tile{ position:relative }
 .tile img{
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  display: block;
-  border-radius: 0;
-  transition: filter .25s ease;
+  width:100%;
+  height:auto;
+  object-fit:cover;
+  display:block;
+  border-radius:0;
+  transition:filter .25s ease;
 }
 
-/* Centered label, only text (no pill) */
+/* Centered label (text only) */
 .tile .label{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: 700;
-  font-size: 24px;
-  color: #fff;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity .2s;
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  font-weight:700;
+  font-size:24px;
+  color:#fff;
+  z-index:2;
+  opacity:0;
+  transition:opacity .2s ease;
 }
 
-.tile:hover img{ filter: brightness(40%); }
-.tile:hover .label{ opacity: 1; }
+.tile:hover img{ filter:brightness(40%) }
+.tile:hover .label{ opacity:1 }
 
 /* ==============================
    CV list — flush left (no bullets)
    ============================== */
 .cv-list{
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
+  list-style:none;
+  padding-left:0;
+  margin:0;
 }
 .cv-list li{
-  margin: .35rem 0;
-  color: var(--muted);
+  margin:.35rem 0;
+  color:var(--muted);
 }
 
 /* ==============================
    Work page header block
    ============================== */
-.project-head{ margin: 10px 0 18px; }
+.project-head{ margin:10px 0 18px }
 
 .project-title{
-  font-size: clamp(28px, 4vw, 40px);
-  line-height: 1.1;
-  margin: 0;
+  font-size:clamp(28px,4vw,40px);
+  line-height:1.1;
+  margin:0;
 }
 
-/* You asked for no italics; keep it normal but slightly lighter */
+/* No italics for the // part, just lighter */
 .project-title em{
-  font-style: normal;
-  font-weight: 400;
-  opacity: .85;
+  font-style:normal;
+  font-weight:400;
+  opacity:.85;
 }
 
-/* Bigger meta and roles */
 .project-meta{
-  margin-top: 8px;
-  color: var(--muted);
-  font-size: clamp(16px, 1.6vw, 22px);
-  letter-spacing: .02em;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:clamp(16px,1.6vw,22px);
+  letter-spacing:.02em;
 }
+
 .project-roles{
-  margin-top: 12px;
-  font-weight: 600;
-  letter-spacing: .02em;
-  font-size: clamp(18px, 1.8vw, 26px);
+  margin-top:12px;
+  font-weight:600;
+  letter-spacing:.02em;
+  font-size:clamp(18px,1.8vw,26px);
 }
 
 /* ==============================
@@ -205,7 +209,7 @@ a:hover{ opacity:.85 }
   margin:8px 0 16px;
 }
 
-/* Video (native or Plyr) spans container width */
+/* Native or Plyr video should span container */
 .project-hero video,
 .project-hero .plyr,
 .project-hero .plyr--video{
@@ -216,19 +220,11 @@ a:hover{ opacity:.85 }
   margin:8px 0 16px;
 }
 
-/* OPTIONAL: make work pages a touch wider than default container
-   (closer to Carl’s feel but not edge-to-edge). */
-@media (min-width: 900px){
-  .container.narrow{ max-width: 1200px; }
-}
-
-/* Phone sanity */
-@media (max-width: 640px){
+@media (max-width:640px){
   .project-hero video,
   .project-hero .plyr,
   .project-hero .plyr--video{
     width:100%;
-    margin-left:0;
   }
 }
 
@@ -254,18 +250,18 @@ a:hover{ opacity:.85 }
 .project-nav{
   display:flex;
   justify-content:space-between;
-  margin-top: 2rem;
+  margin-top:2rem;
 }
 .project-nav a{
-  background-color: rgba(255,255,255,0.1);
-  padding: .5rem 1rem;
-  font-weight: 700;
-  border-radius: 4px;
-  color: #fff;
-  transition: background-color .3s;
+  background-color:rgba(255,255,255,0.1);
+  padding:.5rem 1rem;
+  font-weight:700;
+  border-radius:4px;
+  color:#fff;
+  transition:background-color .3s ease;
 }
 .project-nav a:hover{
-  background-color: rgba(255,255,255,0.3);
+  background-color:rgba(255,255,255,0.3);
 }
 
 /* ==============================
@@ -286,6 +282,6 @@ a:hover{ opacity:.85 }
 .site-footer .social a{
   font-size:36px;
   color:var(--fg);
-  transition: opacity .2s ease;
+  transition:opacity .2s ease;
 }
 .site-footer .social a:hover{ opacity:.8 }
