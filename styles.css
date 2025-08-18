@@ -35,22 +35,23 @@ a:hover{ opacity:.85 }
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: max-content;   /* shrink-wrap to the widest child (the tagline) */
-  margin: 0 auto;       /* center the block in the header */
-}
-
-.brand,
-.tagline {
-  width: 100%;          /* both share the same width */
-  text-align: center;
+  margin: 0 auto;        /* center the whole block */
 }
 
 .tagline {
-  white-space: nowrap;  /* prevents wrapping so it defines the width cleanly */
+  white-space: nowrap;   /* lock tagline on one line */
   letter-spacing: 0.12em;
   font-size: 14px;
   font-weight: 300;
   color: var(--muted);
+  text-align: center;
+}
+
+/* Force brand to match tagline width */
+.brand {
+  display: block;
+  text-align: center;
+  width: 100%;           /* inherit width from .tagline */
 }
 
 /* Nav pinned right, no wrapping */
