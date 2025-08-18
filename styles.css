@@ -1,12 +1,7 @@
-/* =========================================================
-   Sumit M Pujar — Global Styles
-   Single source of truth (no duplicates)
-   ========================================================= */
-
-/* --------------------------
-   Font & Design Tokens
-   -------------------------- */
-@font-face {
+/* ==============================
+   Global stylesheet — Sumit M Pujar
+   ============================== */
+@font-face { 
   font-family: 'League Spartan';
   src: url('fonts/LeagueSpartan-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 900;
@@ -14,132 +9,114 @@
   font-display: swap;
 }
 
-:root{
+:root {
   --bg:#000;
   --fg:#fff;
   --muted:#c6c6c6;
-  --max:1100px;               /* default content width */
-
-  /* Header tuning knobs */
-  --brand-track: 0.02em;      /* name letter-spacing */
-  --tag-track:   0.18em;      /* tagline letter-spacing */
+  --max:1100px;
 }
 
-*{ box-sizing:border-box }
-html,body{ height:100% }
+* { box-sizing:border-box; }
+html,body { height:100%; }
 
-body{
+body {
   margin:0;
   background:var(--bg);
   color:var(--fg);
-  font-family:'League Spartan', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family:'League Spartan', sans-serif;
   font-size:16px;
   line-height:1.5;
 }
 
-a{ color:var(--fg); text-decoration:none }
-a:hover{ opacity:.85 }
+a { color:var(--fg); text-decoration:none; }
+a:hover { opacity:.85; }
 
-/* =========================================================
-   HEADER — brand (left) + nav (right)
-   ========================================================= */
-.site-header{
+/* ==============================
+   Header
+   ============================== */
+.site-header {
   position: sticky;
   top: 0;
   z-index: 10;
   background: rgba(0,0,0,.9);
   padding: 20px 24px;
 
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* brand | spacer | nav */
   align-items: center;
-  justify-content: space-between;   /* pins brand left, nav right */
-  gap: 24px;
-  flex-wrap: nowrap;
+  gap: 28px;
 }
 
-/* Left block: name + tagline */
-.brand-group{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex: 1 1 auto;
-  min-width: 0;
+.brand-group {
+  display: inline-grid;
+  grid-auto-flow: row;
+  justify-items: stretch;
+  align-items: start;
+  width: max-content;
 }
 
-/* Name */
-.brand{
+.brand,
+.tagline {
+  width: 100%;
+  text-align: left;
   margin: 0;
+}
+
+.brand {
   font-weight: 400;
-  letter-spacing: var(--brand-track);
+  letter-spacing: .02em;
   font-size: clamp(24px, 3.2vw, 34px);
   line-height: 1;
-  white-space: nowrap;
-  text-align: left;
 }
 
-/* Tagline */
-.tagline{
+.tagline {
   margin-top: 6px;
   font-weight: 300;
   color: var(--muted);
-  letter-spacing: var(--tag-track);
+  letter-spacing: .18em;
   font-size: clamp(12px, 1.6vw, 16px);
   white-space: nowrap;
-  text-align: left;
 }
 
-/* Right block: nav */
-.nav{
-  flex: 0 0 auto;
+.nav {
+  justify-self: end;
   display: flex;
   gap: 24px;
   white-space: nowrap;
 }
-.nav a{ display:inline-block; }
-.nav .active{ opacity:.6 }
+.nav a { display:inline-block; }
+.nav .active { opacity:.6; }
 
-/* Small phones: stack nav under brand, keep left-aligned */
-@media (max-width: 560px){
-  .site-header{
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
+@media (max-width: 560px) {
+  .site-header { grid-template-columns: 1fr; row-gap: 12px; }
+  .nav { justify-self: start; }
 }
 
-/* =========================================================
-   PAGE CONTAINERS
-   ========================================================= */
-.container{ max-width:var(--max); margin:40px auto; padding:0 24px }
-.container.narrow{ max-width:1100px }       /* work pages default */
-.container.full  { max-width:none; margin:0; padding:0 }
+/* ==============================
+   Page containers
+   ============================== */
+.container { max-width:var(--max); margin:40px auto; padding:0 24px; }
+.container.narrow { max-width:1100px; }
+.container.full { max-width:none; margin:0; padding:0; }
 
-/* Make work pages a touch wider on desktop (Carl vibe, not edge-to-edge) */
-@media (min-width: 900px){
-  .container.narrow{ max-width:1200px; }
-}
-
-/* =========================================================
-   INDEX — full-width stacked tiles
-   ========================================================= */
-.grid{
+/* ==============================
+   Index grid tiles
+   ============================== */
+.grid {
   display:flex;
   flex-direction:column;
-  gap:0;                       /* flush, like Carl Herse */
+  gap:0;
 }
-
-.tile{ position:relative; }
-.tile img{
+.tile { position:relative; }
+.tile img {
   width:100%;
   height:auto;
   object-fit:cover;
   display:block;
   border-radius:0;
-  transition: filter .25s ease;
+  transition:filter .25s ease;
 }
-
-/* label centered, only text */
-.tile .label{
+.tile .label {
   position:absolute;
   top:50%; left:50%;
   transform:translate(-50%,-50%);
@@ -148,62 +125,60 @@ a:hover{ opacity:.85 }
   color:#fff;
   z-index:2;
   opacity:0;
-  transition:opacity .2s ease;
+  transition:opacity .2s;
 }
+.tile:hover img { filter:brightness(40%); }
+.tile:hover .label { opacity:1; }
 
-.tile:hover img{ filter:brightness(40%); }
-.tile:hover .label{ opacity:1; }
-
-/* =========================================================
-   CV — flush lists (no bullets)
-   ========================================================= */
-.cv-list{
+/* ==============================
+   CV list
+   ============================== */
+.cv-list {
   list-style:none;
   padding-left:0;
   margin:0;
 }
-.cv-list li{
+.cv-list li {
   margin:.35rem 0;
   color:var(--muted);
 }
 
-/* =========================================================
-   WORK PAGES — header block
-   ========================================================= */
-.project-head{ margin: 10px 0 18px; }
+/* ==============================
+   Work page header
+   ============================== */
+.project-head { margin:10px 0 18px; }
 
-.project-title{
-  font-size: clamp(28px, 4vw, 40px);
-  line-height: 1.1;
-  margin: 0;
+.project-title {
+  font-size:clamp(28px,4vw,40px);
+  line-height:1.1;
+  margin:0;
 }
-/* No italics for the // CNA (Series) part */
-.project-title em{
-  font-style: normal;
-  font-weight: 400;
-  opacity: .85;
-}
-
-.project-meta{
-  margin-top: 8px;
-  color: var(--muted);
-  font-size: clamp(16px, 1.6vw, 22px);
-  letter-spacing: .02em;
-}
-.project-roles{
-  margin-top: 12px;
-  font-weight: 600;
-  letter-spacing: .02em;
-  font-size: clamp(18px, 1.8vw, 26px);
+.project-title em {
+  font-style:normal; /* no italics */
+  font-weight:400;
+  opacity:.85;
 }
 
-/* =========================================================
-   HERO MEDIA — image/video/Plyr
-   ========================================================= */
+.project-meta {
+  margin-top:8px;
+  color:var(--muted);
+  font-size:clamp(16px,1.6vw,22px);
+  letter-spacing:.02em;
+}
+.project-roles {
+  margin-top:12px;
+  font-weight:600;
+  letter-spacing:.02em;
+  font-size:clamp(18px,1.8vw,26px);
+}
+
+/* ==============================
+   Hero media
+   ============================== */
 .project-hero img,
 .project-hero video,
 .project-hero .plyr,
-.project-hero .plyr--video{
+.project-hero .plyr--video {
   width:100%;
   max-width:100%;
   border-radius:12px;
@@ -211,70 +186,57 @@ a:hover{ opacity:.85 }
   margin:8px 0 16px;
 }
 
-/* Phone sanity */
-@media (max-width:640px){
+@media (min-width:900px) {
+  .container.narrow { max-width:1200px; }
+}
+
+@media (max-width:640px) {
   .project-hero video,
   .project-hero .plyr,
-  .project-hero .plyr--video{
+  .project-hero .plyr--video {
     width:100%;
     margin-left:0;
   }
 }
 
-/* =========================================================
-   OPTIONAL STILLS GRID (if you use it later)
-   ========================================================= */
-.stills{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:14px;
-  margin-top:12px;
-}
-.stills img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  border-radius:8px;
-}
-
-/* =========================================================
-   PROJECT PAGINATION (Prev/Next)
-   ========================================================= */
-.project-nav{
+/* ==============================
+   Project nav
+   ============================== */
+.project-nav {
   display:flex;
   justify-content:space-between;
   margin-top:2rem;
 }
-.project-nav a{
+.project-nav a {
   background-color:rgba(255,255,255,0.1);
   padding:.5rem 1rem;
   font-weight:700;
   border-radius:4px;
   color:#fff;
-  transition:background-color .3s ease;
+  transition:background-color .3s;
 }
-.project-nav a:hover{
+.project-nav a:hover {
   background-color:rgba(255,255,255,0.3);
 }
 
-/* =========================================================
-   FOOTER — centered social icons
-   ========================================================= */
-.site-footer{
+/* ==============================
+   Footer
+   ============================== */
+.site-footer {
   border-top:1px solid #222;
   padding:20px 24px;
   margin-top:40px;
   text-align:center;
 }
-.site-footer .social{
+.site-footer .social {
   display:flex;
   justify-content:center;
   gap:18px;
   flex-wrap:wrap;
 }
-.site-footer .social a{
+.site-footer .social a {
   font-size:36px;
   color:var(--fg);
-  transition: opacity .2s ease;
+  transition:opacity .2s ease;
 }
-.site-footer .social a:hover{ opacity:.8 }
+.site-footer .social a:hover { opacity:.8; }
