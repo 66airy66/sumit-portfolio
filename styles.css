@@ -260,3 +260,51 @@ a:hover{ opacity:.85 }
   transition:opacity .2s ease;
 }
 .site-footer .social a:hover{ opacity:.8 }
+
+/* === HEADER FIX: brand left, nav right, shared width for name/tagline === */
+
+/* Use grid so left (brand-group) and right (nav) pin to edges */
+.site-header{
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* [brand] [fill] [nav] */
+  align-items: center;
+  gap: 28px;
+}
+
+/* Make brand & tagline live in a one-column inline grid.
+   The column takes the width of the *widest* row (the tagline),
+   then we stretch both rows to that same width. */
+.brand-group{
+  display: inline-grid;
+  grid-auto-flow: row;      /* one column, multiple rows */
+  justify-items: stretch;   /* stretch rows to the column width */
+  align-items: start;
+  width: max-content;       /* shrink-wrap to widest row */
+  min-width: 0;
+}
+
+/* Both rows occupy that shared column width */
+.brand,
+.tagline{
+  width: 100%;
+  text-align: left;
+  margin: 0;
+}
+
+/* Tune letter spacing here (these two lines are your “knobs”) */
+.brand   { letter-spacing: 0.02em; font-size: clamp(24px, 3.2vw, 34px); line-height: 1; }
+.tagline { letter-spacing: 0.18em; font-size: clamp(12px, 1.6vw, 16px); white-space: nowrap; }
+
+/* Keep nav pinned to the far right */
+.nav{
+  justify-self: end;
+  display: flex;
+  gap: 24px;
+  white-space: nowrap;
+}
+
+/* Small screens: stack nav under brand, left-aligned */
+@media (max-width: 560px){
+  .site-header{ grid-template-columns: 1fr; row-gap: 12px; }
+  .nav{ justify-self: start; }
+}
