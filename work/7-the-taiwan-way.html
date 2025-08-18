@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Taiwan Way — Sumit M Pujar</title>
   <link rel="stylesheet" href="../styles.css" />
+  <!-- Load shared video player styles/scripts for all work pages -->
   <script src="../scripts/include-work-head.js"></script>
 </head>
 <body>
@@ -13,8 +14,17 @@
   <script src="../scripts/include-header.js" defer></script>
 
   <main class="container narrow">
-    <h1>The Taiwan Way</h1>
-    <p class="muted">YEAR • ROLE • Short logline or blurb here.</p>
+
+    <!-- Project header (consistent) -->
+    <div class="project-head">
+      <h1 class="project-title">
+        The Taiwan Way <em>// Docu-Series</em>
+      </h1>
+      <div class="project-meta">
+        Taiwanese-American restaurant co-owner Chris Yu returns to Taiwan to get some inspiration for their fast-casual cafe YUMPLING, based in Queens, New York.
+      </div>
+      <div class="project-roles">Producer</div>
+    </div>
 
     <!-- Hero video -->
     <div class="project-hero">
@@ -22,7 +32,6 @@
         controls
         preload="metadata"
         playsinline
-        style="width:100%; height:auto; border-radius:12px; display:block;"
         poster="../images/7-the-taiwan-way/7. The Taiwan Way.png">
         <source src="../images/7-the-taiwan-way/7. The Taiwan Way.mp4" type="video/mp4" />
         Your browser does not support HTML5 video.
