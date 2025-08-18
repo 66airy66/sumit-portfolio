@@ -1,6 +1,33 @@
-/* ==============================
-   Base & tokens
-   ============================== */
+/* =======================================================================
+
+  Sumit M Pujar — Global Stylesheet
+  -----------------------------------------------------------------------
+  This file is organized in labeled sections:
+
+    00)  Tokens & Base
+    01)  Header (brand left, nav right)
+    02)  Containers (page widths)
+    03)  Index Grid (full-width tiles like Carl Herse)
+    04)  CV Page (flush list)
+    05)  Work Page Header (title / meta / roles)
+    06)  Hero Media (image/video/Plyr)
+    07)  Stills Grid
+    08)  Project Pagination (Prev/Next)
+    09)  Footer (social icons)
+    10)  Utilities & Responsive tweaks
+
+  Notes:
+    • To widen the name “Sumit M Pujar” to visually match the tagline width,
+      adjust --brand-track in Section 01 (.06em → .08em → .10em).
+    • The header HTML you already have will work as-is.
+
+======================================================================= */
+
+
+/* -----------------------------------------------------------------------
+  00) TOKENS & BASE
+----------------------------------------------------------------------- */
+
 @font-face {
   font-family: 'League Spartan';
   src: url('fonts/LeagueSpartan-VariableFont_wght.ttf') format('truetype');
@@ -10,30 +37,39 @@
 }
 
 :root{
-  --bg:#000;
-  --fg:#fff;
-  --muted:#c6c6c6;
-  --max:1100px;                 /* default content width */
+  /* Colors */
+  --bg: #000;
+  --fg: #fff;
+  --muted: #c6c6c6;
+
+  /* Page widths */
+  --max: 1100px;           /* default content max width */
+
+  /* Header tuning */
+  --brand-track: .06em;    /* letter-spacing for brand (adjust to widen name) */
 }
 
-*{ box-sizing:border-box }
-html,body{ height:100% }
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
 
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--fg);
-  font-family:'League Spartan', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-size:16px;
-  line-height:1.5;
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'League Spartan', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-a{ color:var(--fg); text-decoration:none }
-a:hover{ opacity:.85 }
+a{ color: var(--fg); text-decoration: none; }
+a:hover{ opacity: .85; }
 
-/* ==============================
-   Header (brand left, nav right)
-   ============================== */
+
+/* -----------------------------------------------------------------------
+  01) HEADER  (brand left / nav right)
+----------------------------------------------------------------------- */
+
 .site-header{
   position: sticky;
   top: 0;
@@ -41,247 +77,270 @@ a:hover{ opacity:.85 }
   background: rgba(0,0,0,.9);
   padding: 20px 24px;
 
-  display: grid;
-  grid-template-columns: 1fr auto;  /* brand | nav */
+  /* Layout: brand block on left, nav on right */
+  display: flex;
   align-items: center;
-  column-gap: 24px;
+  gap: 24px;
 }
 
-/* Brand block: two rows that share the same column,
-   left-aligned. The block is shrink-wrapped to the
-   wider line (usually the tagline). */
+/* Brand block: two stacked lines that share a visual width */
 .brand-group{
-  display: inline-grid;
-  grid-auto-flow: row;
-  justify-items: start;
-  width: max-content;           /* shrink to content */
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;    /* left align both lines */
+  width: max-content;         /* shrink-wrap to its widest line (tagline) */
+  min-width: 0;
 }
 
-/* Both lines occupy that column */
-.brand,
-.tagline{
-  display:block;
-  text-align:left;
-  width:auto;                   /* JS can override width on .brand if exact match desired */
-}
-
-/* Name */
 .brand{
+  display: block;
   font-weight: 400;
-  letter-spacing: .02em;
-  font-size: 28px;
+  letter-spacing: var(--brand-track);  /* widen effect for the name */
   line-height: 1;
+  white-space: nowrap;
+  text-align: left;
+  font-size: clamp(24px, 3.2vw, 34px);
 }
 
-/* Tagline */
 .tagline{
-  white-space: nowrap;
-  letter-spacing: .12em;
-  font-size: 14px;
-  font-weight: 300;
+  margin-top: 6px;
   color: var(--muted);
-  margin-top: 4px;
+  font-weight: 300;
+  letter-spacing: .12em;      /* wide spacing */
+  white-space: nowrap;
+  text-align: left;
+  font-size: clamp(12px, 1.6vw, 16px);
 }
 
 /* Nav pinned to the far right */
 .nav{
-  justify-self: end;
-  display:flex;
-  gap:18px;
-  align-items:center;
-  white-space:nowrap;
+  margin-left: auto;          /* pushes nav to right edge */
+  display: inline-flex;
+  gap: 18px;
+  align-items: center;
+  white-space: nowrap;
 }
 .nav a{ display:inline-block; }
-.nav .active{ opacity:.6 }
+.nav .active{ opacity:.6; }
 
-/* Header sizes on larger screens */
-@media (min-width: 900px){
-  .brand{ font-size: 34px; }
-  .tagline{ font-size: 16px; }
-}
-
-/* Optional: stack nav below brand on small screens */
+/* When space gets tight, let nav wrap under brand (still left-aligned) */
 @media (max-width: 560px){
-  .site-header{ grid-template-columns: 1fr; row-gap: 12px; }
-  .nav{ justify-self: start; }
+  .site-header{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .nav{ margin-left: 0; }
 }
 
-/* ==============================
-   Page containers
-   ============================== */
-.container{ max-width:var(--max); margin:40px auto; padding:0 24px }
-.container.narrow{ max-width:1100px }     /* work page default */
-.container.full   { max-width:none; margin:0; padding:0 }
 
-/* Give work pages a touch more width on desktop (not edge-to-edge) */
+/* -----------------------------------------------------------------------
+  02) CONTAINERS (page widths)
+----------------------------------------------------------------------- */
+
+.container{ max-width: var(--max); margin: 40px auto; padding: 0 24px; }
+.container.narrow{ max-width: 1100px; }     /* used on work pages */
+.container.full   { max-width: none; margin: 0; padding: 0; }
+
+/* Optional: make work pages a touch wider on big screens */
 @media (min-width: 900px){
-  .container.narrow{ max-width:1200px; }
+  .container.narrow{ max-width: 1200px; }
 }
 
-/* ==============================
-   Index grid (full-width tiles)
-   ============================== */
+
+/* -----------------------------------------------------------------------
+  03) INDEX GRID (full-width vertical tiles)
+----------------------------------------------------------------------- */
+
 .grid{
-  display:flex;
-  flex-direction:column;
-  gap:0;
+  display: flex;
+  flex-direction: column;     /* stack like Carl Herse */
+  gap: 0;
 }
 
-.tile{ position:relative }
+.tile{ position: relative; }
+
 .tile img{
-  width:100%;
-  height:auto;
-  object-fit:cover;
-  display:block;
-  border-radius:0;
-  transition:filter .25s ease;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  transition: filter .25s ease;
 }
 
 /* Centered label (text only) */
 .tile .label{
-  position:absolute;
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  font-weight:700;
-  font-size:24px;
-  color:#fff;
-  z-index:2;
-  opacity:0;
-  transition:opacity .2s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 700;
+  font-size: 24px;
+  color: #fff;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity .2s;
 }
 
-.tile:hover img{ filter:brightness(40%) }
-.tile:hover .label{ opacity:1 }
+/* Hover effect: darken image, reveal label */
+.tile:hover img  { filter: brightness(40%); }
+.tile:hover .label{ opacity: 1; }
 
-/* ==============================
-   CV list — flush left (no bullets)
-   ============================== */
+
+/* -----------------------------------------------------------------------
+  04) CV PAGE (flush list)
+----------------------------------------------------------------------- */
+
 .cv-list{
-  list-style:none;
-  padding-left:0;
-  margin:0;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
 }
 .cv-list li{
-  margin:.35rem 0;
-  color:var(--muted);
+  margin: .35rem 0;
+  color: var(--muted);
 }
 
-/* ==============================
-   Work page header block
-   ============================== */
-.project-head{ margin:10px 0 18px }
+
+/* -----------------------------------------------------------------------
+  05) WORK PAGE HEADER (title / meta / roles)
+----------------------------------------------------------------------- */
+
+.project-head{ margin: 10px 0 18px; }
 
 .project-title{
-  font-size:clamp(28px,4vw,40px);
-  line-height:1.1;
-  margin:0;
+  margin: 0;
+  line-height: 1.1;
+  font-size: clamp(28px, 4vw, 40px);
 }
 
-/* No italics for the // part, just lighter */
+/* Keep // CNA (Series) not italic (as requested) */
 .project-title em{
-  font-style:normal;
-  font-weight:400;
-  opacity:.85;
+  font-style: normal;
+  font-weight: 400;
+  opacity: .85;
 }
 
 .project-meta{
-  margin-top:8px;
-  color:var(--muted);
-  font-size:clamp(16px,1.6vw,22px);
-  letter-spacing:.02em;
+  margin-top: 8px;
+  color: var(--muted);
+  letter-spacing: .02em;
+  font-size: clamp(16px, 1.6vw, 22px);  /* “Synopsis • 4 × 30 min” */
 }
 
 .project-roles{
-  margin-top:12px;
-  font-weight:600;
-  letter-spacing:.02em;
-  font-size:clamp(18px,1.8vw,26px);
+  margin-top: 12px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  font-size: clamp(18px, 1.8vw, 26px);  /* “Researcher, Assistant Producer” */
 }
 
-/* ==============================
-   Hero media (image/video)
-   ============================== */
+
+/* -----------------------------------------------------------------------
+  06) HERO MEDIA (image / video / Plyr)
+----------------------------------------------------------------------- */
+
 .project-hero img{
-  width:100%;
-  height:auto;
-  border-radius:12px;
-  display:block;
-  margin:8px 0 16px;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  margin: 8px 0 16px;
 }
 
-/* Native or Plyr video should span container */
+/* Video (native or Plyr) spans container width */
 .project-hero video,
 .project-hero .plyr,
 .project-hero .plyr--video{
-  width:100%;
-  max-width:100%;
-  border-radius:12px;
-  display:block;
-  margin:8px 0 16px;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 12px;
+  display: block;
+  margin: 8px 0 16px;
 }
 
-@media (max-width:640px){
+/* Phone sanity */
+@media (max-width: 640px){
   .project-hero video,
   .project-hero .plyr,
   .project-hero .plyr--video{
-    width:100%;
+    width: 100%;
+    margin-left: 0;
   }
 }
 
-/* ==============================
-   Stills grid (if used later)
-   ============================== */
+
+/* -----------------------------------------------------------------------
+  07) STILLS GRID (optional)
+----------------------------------------------------------------------- */
+
 .stills{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:14px;
-  margin-top:12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
 }
 .stills img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  border-radius:8px;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-/* ==============================
-   Project pagination (Prev/Next)
-   ============================== */
+
+/* -----------------------------------------------------------------------
+  08) PROJECT PAGINATION (Prev / Next)
+----------------------------------------------------------------------- */
+
 .project-nav{
-  display:flex;
-  justify-content:space-between;
-  margin-top:2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
 }
 .project-nav a{
-  background-color:rgba(255,255,255,0.1);
-  padding:.5rem 1rem;
-  font-weight:700;
-  border-radius:4px;
-  color:#fff;
-  transition:background-color .3s ease;
+  background-color: rgba(255,255,255,0.1);
+  padding: .5rem 1rem;
+  font-weight: 700;
+  border-radius: 4px;
+  color: #fff;
+  transition: background-color .3s;
 }
 .project-nav a:hover{
-  background-color:rgba(255,255,255,0.3);
+  background-color: rgba(255,255,255,0.3);
 }
 
-/* ==============================
-   Footer (icons centered)
-   ============================== */
+
+/* -----------------------------------------------------------------------
+  09) FOOTER (icons centered)
+----------------------------------------------------------------------- */
+
 .site-footer{
-  border-top:1px solid #222;
-  padding:20px 24px;
-  margin-top:40px;
-  text-align:center;
+  border-top: 1px solid #222;
+  padding: 20px 24px;
+  margin-top: 40px;
+  text-align: center;
 }
 .site-footer .social{
-  display:flex;
-  justify-content:center;
-  gap:18px;
-  flex-wrap:wrap;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
 }
 .site-footer .social a{
-  font-size:36px;
-  color:var(--fg);
-  transition:opacity .2s ease;
+  font-size: 36px;
+  color: var(--fg);
+  transition: opacity .2s ease;
 }
-.site-footer .social a:hover{ opacity:.8 }
+.site-footer .social a:hover{ opacity: .8; }
+
+
+/* -----------------------------------------------------------------------
+  10) UTILITIES & RESPONSIVE TWEAKS
+----------------------------------------------------------------------- */
+
+/* Make headings and H2s nice and tight if needed */
+h1, h2{ margin: .2em 0 .6em; }
+
+/* Muted text helper */
+.muted{ color: var(--muted); }
