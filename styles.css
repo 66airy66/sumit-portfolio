@@ -1,6 +1,8 @@
 /* ==============================
    Global stylesheet — Sumit M Pujar
    ============================== */
+
+/* Font */
 @font-face { 
   font-family: 'League Spartan';
   src: url('fonts/LeagueSpartan-VariableFont_wght.ttf') format('truetype');
@@ -9,6 +11,7 @@
   font-display: swap;
 }
 
+/* Tokens */
 :root {
   --bg:#000;
   --fg:#fff;
@@ -16,43 +19,49 @@
   --max:1100px;
 }
 
-* { box-sizing:border-box; }
-html,body { height:100%; }
+* { box-sizing: border-box; }
+html, body { height: 100%; }
 
 body {
-  margin:0;
-  background:var(--bg);
-  color:var(--fg);
-  font-family:'League Spartan', sans-serif;
-  font-size:16px;
-  line-height:1.5;
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'League Spartan', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-a { color:var(--fg); text-decoration:none; }
-a:hover { opacity:.85; }
+a { color: var(--fg); text-decoration: none; }
+a:hover { opacity: .85; }
 
 /* ==============================
    Header
    ============================== */
+
 .site-header {
   position: sticky;
   top: 0;
   z-index: 10;
   background: rgba(0,0,0,.9);
   padding: 20px 24px;
+}
 
+/* IMPORTANT: your markup has .header-inner; make it the grid */
+.site-header > .header-inner {
   display: grid;
   grid-template-columns: auto 1fr auto; /* brand | spacer | nav */
   align-items: center;
   gap: 28px;
 }
 
+/* Two-line brand block where the wider line (tagline) defines width */
 .brand-group {
-  display: inline-grid;
+  display: inline-grid;      /* 1 column grid; rows share the same width */
   grid-auto-flow: row;
   justify-items: stretch;
   align-items: start;
-  width: max-content;
+  width: max-content;        /* shrink-wrap to widest row */
+  min-width: 0;
 }
 
 .brand,
@@ -73,170 +82,185 @@ a:hover { opacity:.85; }
   margin-top: 6px;
   font-weight: 300;
   color: var(--muted);
-  letter-spacing: .18em;
+  letter-spacing: .18em;     /* adjust if you want it wider/narrower */
   font-size: clamp(12px, 1.6vw, 16px);
-  white-space: nowrap;
+  white-space: nowrap;       /* keeps the width stable */
 }
 
+/* Nav pinned hard-right */
 .nav {
   justify-self: end;
   display: flex;
   gap: 24px;
   white-space: nowrap;
 }
-.nav a { display:inline-block; }
-.nav .active { opacity:.6; }
+.nav a { display: inline-block; }
+.nav .active { opacity: .6; }
 
+/* Small screens: stack nav under brand, left-aligned */
 @media (max-width: 560px) {
-  .site-header { grid-template-columns: 1fr; row-gap: 12px; }
+  .site-header > .header-inner { grid-template-columns: 1fr; row-gap: 12px; }
   .nav { justify-self: start; }
 }
 
 /* ==============================
    Page containers
    ============================== */
-.container { max-width:var(--max); margin:40px auto; padding:0 24px; }
-.container.narrow { max-width:1100px; }
-.container.full { max-width:none; margin:0; padding:0; }
+
+.container { max-width: var(--max); margin: 40px auto; padding: 0 24px; }
+.container.narrow { max-width: 1100px; }  /* work pages */
+.container.full { max-width: none; margin: 0; padding: 0; }
 
 /* ==============================
    Index grid tiles
    ============================== */
+
 .grid {
-  display:flex;
-  flex-direction:column;
-  gap:0;
+  display: flex;
+  flex-direction: column;  /* stack tiles */
+  gap: 0;
 }
-.tile { position:relative; }
+
+.tile { position: relative; }
+
 .tile img {
-  width:100%;
-  height:auto;
-  object-fit:cover;
-  display:block;
-  border-radius:0;
-  transition:filter .25s ease;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  transition: filter .25s ease;
 }
+
 .tile .label {
-  position:absolute;
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  font-weight:700;
-  font-size:24px;
-  color:#fff;
-  z-index:2;
-  opacity:0;
-  transition:opacity .2s;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 700;
+  font-size: 24px;
+  color: #fff;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity .2s;
 }
-.tile:hover img { filter:brightness(40%); }
-.tile:hover .label { opacity:1; }
+
+.tile:hover img { filter: brightness(40%); }
+.tile:hover .label { opacity: 1; }
 
 /* ==============================
    CV list
    ============================== */
+
 .cv-list {
-  list-style:none;
-  padding-left:0;
-  margin:0;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
 }
 .cv-list li {
-  margin:.35rem 0;
-  color:var(--muted);
+  margin: .35rem 0;
+  color: var(--muted);
 }
 
 /* ==============================
-   Work page header
+   Work page header (per-project)
    ============================== */
-.project-head { margin:10px 0 18px; }
+
+.project-head { margin: 10px 0 18px; }
 
 .project-title {
-  font-size:clamp(28px,4vw,40px);
-  line-height:1.1;
-  margin:0;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.1;
+  margin: 0;
 }
 .project-title em {
-  font-style:normal; /* no italics */
-  font-weight:400;
-  opacity:.85;
+  font-style: normal;   /* no italics */
+  font-weight: 400;
+  opacity: .85;
 }
 
 .project-meta {
-  margin-top:8px;
-  color:var(--muted);
-  font-size:clamp(16px,1.6vw,22px);
-  letter-spacing:.02em;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: clamp(16px, 1.6vw, 22px);
+  letter-spacing: .02em;
 }
 .project-roles {
-  margin-top:12px;
-  font-weight:600;
-  letter-spacing:.02em;
-  font-size:clamp(18px,1.8vw,26px);
+  margin-top: 12px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  font-size: clamp(18px, 1.8vw, 26px);
 }
 
 /* ==============================
-   Hero media
+   Hero media (image/video)
    ============================== */
+
 .project-hero img,
 .project-hero video,
 .project-hero .plyr,
 .project-hero .plyr--video {
-  width:100%;
-  max-width:100%;
-  border-radius:12px;
-  display:block;
-  margin:8px 0 16px;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 12px;
+  display: block;
+  margin: 8px 0 16px;
 }
 
-@media (min-width:900px) {
-  .container.narrow { max-width:1200px; }
+/* Slightly wider work pages on desktop */
+@media (min-width: 900px) {
+  .container.narrow { max-width: 1200px; }
 }
 
-@media (max-width:640px) {
+/* Phone sanity */
+@media (max-width: 640px) {
   .project-hero video,
   .project-hero .plyr,
   .project-hero .plyr--video {
-    width:100%;
-    margin-left:0;
+    width: 100%;
+    margin-left: 0;
   }
 }
 
 /* ==============================
-   Project nav
+   Project pagination
    ============================== */
+
 .project-nav {
-  display:flex;
-  justify-content:space-between;
-  margin-top:2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
 }
 .project-nav a {
-  background-color:rgba(255,255,255,0.1);
-  padding:.5rem 1rem;
-  font-weight:700;
-  border-radius:4px;
-  color:#fff;
-  transition:background-color .3s;
+  background-color: rgba(255,255,255,0.1);
+  padding: .5rem 1rem;
+  font-weight: 700;
+  border-radius: 4px;
+  color: #fff;
+  transition: background-color .3s;
 }
 .project-nav a:hover {
-  background-color:rgba(255,255,255,0.3);
+  background-color: rgba(255,255,255,0.3);
 }
 
 /* ==============================
    Footer
    ============================== */
+
 .site-footer {
-  border-top:1px solid #222;
-  padding:20px 24px;
-  margin-top:40px;
-  text-align:center;
+  border-top: 1px solid #222;
+  padding: 20px 24px;
+  margin-top: 40px;
+  text-align: center;
 }
 .site-footer .social {
-  display:flex;
-  justify-content:center;
-  gap:18px;
-  flex-wrap:wrap;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
 }
 .site-footer .social a {
-  font-size:36px;
-  color:var(--fg);
-  transition:opacity .2s ease;
+  font-size: 36px;
+  color: var(--fg);
+  transition: opacity .2s ease;
 }
-.site-footer .social a:hover { opacity:.8; }
+.site-footer .social a:hover { opacity: .8; }
