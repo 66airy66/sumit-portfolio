@@ -66,10 +66,9 @@ a{ color: var(--fg); text-decoration: none; }
 a:hover{ opacity: .85; }
 
 
-/* -----------------------------------------------------------------------
-  01) HEADER  (brand left / nav right)
------------------------------------------------------------------------ */
-
+/* ==============================
+   Header (brand left, nav right)
+   ============================== */
 .site-header{
   position: sticky;
   top: 0;
@@ -77,53 +76,47 @@ a:hover{ opacity: .85; }
   background: rgba(0,0,0,.9);
   padding: 20px 24px;
 
-  /* Layout: brand block on left, nav on right */
+  /* Flex ensures left + right alignment */
   display: flex;
+  justify-content: space-between; /* pushes brand left, nav right */
   align-items: center;
-  gap: 24px;
 }
 
-/* Brand block: two stacked lines that share a visual width */
+/* Brand block = two stacked lines */
 .brand-group{
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;    /* left align both lines */
-  width: max-content;         /* shrink-wrap to its widest line (tagline) */
-  min-width: 0;
+  align-items: flex-start;   /* keep both lines left-aligned */
 }
 
 .brand{
-  display: block;
   font-weight: 400;
-  letter-spacing: var(--brand-track);  /* widen effect for the name */
-  line-height: 1;
-  white-space: nowrap;
-  text-align: left;
+  letter-spacing: var(--brand-track); /* widen name */
   font-size: clamp(24px, 3.2vw, 34px);
+  line-height: 1;
+  margin: 0;
+  white-space: nowrap;
 }
 
 .tagline{
   margin-top: 6px;
-  color: var(--muted);
   font-weight: 300;
-  letter-spacing: .12em;      /* wide spacing */
-  white-space: nowrap;
-  text-align: left;
+  letter-spacing: 0.20em;   /* wider spacing → makes tagline stretch */
+  color: var(--muted);
   font-size: clamp(12px, 1.6vw, 16px);
+  white-space: nowrap;
 }
 
-/* Nav pinned to the far right */
+/* Nav stays on the right edge */
 .nav{
-  margin-left: auto;          /* pushes nav to right edge */
-  display: inline-flex;
-  gap: 18px;
-  align-items: center;
+  display: flex;
+  gap: 24px; /* nice breathing space */
   white-space: nowrap;
 }
 .nav a{ display:inline-block; }
 .nav .active{ opacity:.6; }
 
-/* When space gets tight, let nav wrap under brand (still left-aligned) */
+/* Small screens: stack nav below brand */
 @media (max-width: 560px){
   .site-header{
     flex-direction: column;
@@ -132,7 +125,6 @@ a:hover{ opacity: .85; }
   }
   .nav{ margin-left: 0; }
 }
-
 
 /* -----------------------------------------------------------------------
   02) CONTAINERS (page widths)
