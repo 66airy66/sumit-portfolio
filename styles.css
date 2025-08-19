@@ -17,6 +17,9 @@
   --fg:#fff;
   --muted:#c6c6c6;
   --max:1100px;
+
+  /* header height (desktop default) */
+  --header-h: 80px;
 }
 
 *{ box-sizing:border-box; }
@@ -26,42 +29,39 @@ body{
   margin:0;
   background:var(--bg);
   color:var(--fg);
-  font-family:'League Spartan',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  font-family:'League Spartan', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   font-size:16px;
   line-height:1.5;
 
-  /* space for fixed header (tweak if header height changes) */
-  padding-top:80px;
+  /* keep content below the fixed header */
+  padding-top: var(--header-h);
 }
 
 a{ color:var(--fg); text-decoration:none; }
 a:hover{ opacity:.85; }
 
 /* ==============================
-   Header (injected into #site-header)
+   Header (fixed)
    ============================== */
 
-/* Pin the wrapper so it always stays on top */
-#site-header{
+/* Bar */
+.site-header{
   position:fixed;
   top:0; left:0; right:0;
   z-index:1000;
-  background:rgba(0,0,0,.9);
-}
-
-/* Inner header layout */
-#site-header .site-header{
-  position:static;                 /* wrapper is fixed, inner can be static */
+  background:rgba(0,0,0,.9);     /* translucent on desktop */
   padding:20px 24px;
 }
-#site-header .site-header > .header-inner{
+
+/* Inner layout from your markup */
+.site-header > .header-inner{
   display:grid;
   grid-template-columns:auto 1fr auto; /* brand | spacer | nav */
   align-items:center;
   gap:28px;
 }
 
-/* Brand block */
+/* Brand block: two rows sharing width */
 .brand-group{
   display:inline-grid;
   grid-auto-flow:row;
@@ -70,17 +70,15 @@ a:hover{ opacity:.85; }
   width:max-content;
   min-width:0;
 }
-.brand,.tagline{
-  width:100%;
-  text-align:left;
-  margin:0;
-}
+.brand, .tagline{ width:100%; margin:0; text-align:left; }
+
 .brand{
   font-weight:400;
   letter-spacing:.02em;
   font-size:clamp(24px,3.2vw,34px);
   line-height:1;
 }
+
 .tagline{
   margin-top:6px;
   font-weight:300;
@@ -90,7 +88,7 @@ a:hover{ opacity:.85; }
   white-space:nowrap;
 }
 
-/* Nav */
+/* Nav pinned right */
 .nav{
   justify-self:end;
   display:flex;
@@ -100,16 +98,29 @@ a:hover{ opacity:.85; }
 .nav a{ display:inline-block; }
 .nav .active{ opacity:.6; }
 
-/* Phones: center the header */
+/* ===== Phones: solid black, safe‑area, centered ===== */
 @media (max-width:560px){
-  body{ padding-top:96px; } /* header stacks taller */
-  #site-header .site-header > .header-inner{
+  :root{ --header-h: calc(72px + env(safe-area-inset-top)); }
+
+  .site-header{
+    background:#000 !important;            /* solid black on mobile */
+    padding-top:max(12px, env(safe-area-inset-top));
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    box-shadow:0 1px 0 rgba(255,255,255,0.08); /* subtle divider */
+  }
+
+  .site-header > .header-inner{
     grid-template-columns:1fr;
     justify-items:center;
     row-gap:10px;
   }
-  .brand-group{ justify-items:center; text-align:center; width:100%; }
-  .brand,.tagline{ text-align:center; }
+  .brand-group{
+    justify-items:center;
+    text-align:center;
+    width:100%;
+  }
+  .brand, .tagline{ text-align:center; }
   .nav{ justify-self:center; }
 }
 
@@ -125,9 +136,10 @@ a:hover{ opacity:.85; }
    ============================== */
 .grid{
   display:flex;
-  flex-direction:column; /* stacked */
+  flex-direction:column; /* stacked list */
   gap:0;
 }
+
 .tile{ position:relative; }
 .tile img{
   width:100%;
@@ -137,6 +149,8 @@ a:hover{ opacity:.85; }
   border-radius:0;
   transition:filter .25s ease;
 }
+
+/* Over-image label (desktop baseline) */
 .tile .label{
   position:absolute;
   top:50%; left:50%;
@@ -147,13 +161,13 @@ a:hover{ opacity:.85; }
   z-index:2;
   opacity:0;
   transition:opacity .2s;
-  white-space:nowrap;     /* desktop: one line */
+  white-space:nowrap;       /* single line by default */
   text-align:center;
 }
 .tile:hover img{ filter:brightness(40%); }
 .tile:hover .label{ opacity:1; }
 
-/* Phone: nicer wrapping on homepage tiles */
+/* Phone: nicer wrapping/centering for labels (homepage only) */
 @media (max-width:640px){
   .homepage .tile .label{
     white-space:normal;
@@ -174,12 +188,10 @@ a:hover{ opacity:.85; }
   font-size:clamp(22px,2.2vw,30px);
   letter-spacing:.01em;
 }
-.cv-list{
-  list-style:none;
-  margin:0;
-  padding-left:0;
-}
+
+.cv-list{ list-style:none; margin:0; padding-left:0; }
 .cv-list li{ margin:18px 0 22px; }
+
 .cv-title{
   color:var(--fg);
   font-weight:800;
@@ -196,9 +208,10 @@ a:hover{ opacity:.85; }
 }
 
 /* ==============================
-   Work page header (per-project)
+   Work page header (per‑project)
    ============================== */
 .project-head{ margin:10px 0 18px; }
+
 .project-title{
   font-size:clamp(28px,4vw,40px);
   line-height:1.1;
@@ -210,6 +223,7 @@ a:hover{ opacity:.85; }
   opacity:1;
   color:var(--fg);
 }
+
 .project-meta{
   margin-top:8px;
   color:var(--fg);
@@ -237,9 +251,13 @@ a:hover{ opacity:.85; }
   display:block;
   margin:8px 0 16px;
 }
+
+/* Wider work pages on desktop */
 @media (min-width:900px){
   .container.narrow{ max-width:1200px; }
 }
+
+/* Phone sanity for videos */
 @media (max-width:640px){
   .project-hero video,
   .project-hero .plyr,
@@ -268,7 +286,7 @@ a:hover{ opacity:.85; }
 .project-nav a:hover{ background-color:rgba(255,255,255,.3); }
 
 /* ==============================
-   Connect page (uses footer icons)
+   Connect page (reuses footer icons)
    ============================== */
 .connect-page{ text-align:center; margin-top:72px; }
 .connect-title{
@@ -277,10 +295,17 @@ a:hover{ opacity:.85; }
   margin:0;
   color:var(--fg);
 }
-/* Pull shared footer up; remove divider */
-.connect-page + #site-footer{ margin-top:10px; padding-top:10px; border-top:none; }
+
+/* Pull the shared footer up and remove its divider */
+.connect-page + #site-footer{
+  margin-top:10px;
+  padding-top:10px;
+  border-top:none;
+}
 .connect-page + #site-footer .social{ gap:24px; }
 .connect-page + #site-footer .social a{ font-size:44px; }
+
+/* Mobile tweaks for connect */
 @media (max-width:560px){
   .connect-page{ margin-top:56px; }
   .connect-page + #site-footer .social{ gap:20px; }
