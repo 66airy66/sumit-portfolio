@@ -22,13 +22,14 @@
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--fg);
-  font-family:'League Spartan', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-size:16px;
-  line-height:1.5;
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'League Spartan', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  padding-top: 80px;   /* added — adjust based on header height */
 }
 
 a{ color:var(--fg); text-decoration:none; }
@@ -38,13 +39,15 @@ a:hover{ opacity:.85; }
    Header
    ============================== */
 
-/* Sticky bar */
-.site-header{
-  position:sticky;
-  top:0;
-  z-index:10;
-  background:rgba(0,0,0,.9);
-  padding:20px 24px;
+/* Fixed bar */
+.site-header {
+  position: fixed;   /* instead of sticky */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;     /* make sure it’s above everything */
+  background: rgba(0,0,0,.9);
+  padding: 20px 24px;
 }
 
 /* Your header markup uses .header-inner */
