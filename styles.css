@@ -22,66 +22,65 @@
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font-family: 'League Spartan', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  padding-top: 80px;   /* added — adjust based on header height */
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'League Spartan',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.5;
+
+  /* space for fixed header (tweak if header height changes) */
+  padding-top:80px;
 }
 
 a{ color:var(--fg); text-decoration:none; }
 a:hover{ opacity:.85; }
 
 /* ==============================
-   Header
+   Header (injected into #site-header)
    ============================== */
 
-/* Fixed bar */
-.site-header {
-  position: fixed;   /* instead of sticky */
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;     /* make sure it’s above everything */
-  background: rgba(0,0,0,.9);
-  padding: 20px 24px;
+/* Pin the wrapper so it always stays on top */
+#site-header{
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:1000;
+  background:rgba(0,0,0,.9);
 }
 
-/* Your header markup uses .header-inner */
-.site-header > .header-inner{
+/* Inner header layout */
+#site-header .site-header{
+  position:static;                 /* wrapper is fixed, inner can be static */
+  padding:20px 24px;
+}
+#site-header .site-header > .header-inner{
   display:grid;
   grid-template-columns:auto 1fr auto; /* brand | spacer | nav */
   align-items:center;
   gap:28px;
 }
 
-/* Brand block: two rows share width */
+/* Brand block */
 .brand-group{
-  display:inline-grid;       /* one column, multiple rows */
+  display:inline-grid;
   grid-auto-flow:row;
   justify-items:stretch;
   align-items:start;
-  width:max-content;         /* shrink-wrap to widest row (tagline) */
+  width:max-content;
   min-width:0;
 }
-
-.brand,
-.tagline{
+.brand,.tagline{
   width:100%;
   text-align:left;
   margin:0;
 }
-
 .brand{
   font-weight:400;
   letter-spacing:.02em;
   font-size:clamp(24px,3.2vw,34px);
   line-height:1;
 }
-
 .tagline{
   margin-top:6px;
   font-weight:300;
@@ -91,7 +90,7 @@ a:hover{ opacity:.85; }
   white-space:nowrap;
 }
 
-/* Nav right */
+/* Nav */
 .nav{
   justify-self:end;
   display:flex;
@@ -101,20 +100,16 @@ a:hover{ opacity:.85; }
 .nav a{ display:inline-block; }
 .nav .active{ opacity:.6; }
 
-/* Phones: stack & center header */
+/* Phones: center the header */
 @media (max-width:560px){
-  .site-header > .header-inner{
+  body{ padding-top:96px; } /* header stacks taller */
+  #site-header .site-header > .header-inner{
     grid-template-columns:1fr;
     justify-items:center;
     row-gap:10px;
   }
-  .brand-group{
-    justify-items:center;
-    text-align:center;
-    width:100%;
-  }
-  .brand,
-  .tagline{ text-align:center; }
+  .brand-group{ justify-items:center; text-align:center; width:100%; }
+  .brand,.tagline{ text-align:center; }
   .nav{ justify-self:center; }
 }
 
@@ -133,7 +128,6 @@ a:hover{ opacity:.85; }
   flex-direction:column; /* stacked */
   gap:0;
 }
-
 .tile{ position:relative; }
 .tile img{
   width:100%;
@@ -143,8 +137,6 @@ a:hover{ opacity:.85; }
   border-radius:0;
   transition:filter .25s ease;
 }
-
-/* Over-image label (DESKTOP baseline) */
 .tile .label{
   position:absolute;
   top:50%; left:50%;
@@ -155,24 +147,20 @@ a:hover{ opacity:.85; }
   z-index:2;
   opacity:0;
   transition:opacity .2s;
-
-  /* keep desktop single-line behavior */
-  white-space:nowrap;
-  max-width:none;
+  white-space:nowrap;     /* desktop: one line */
   text-align:center;
 }
 .tile:hover img{ filter:brightness(40%); }
 .tile:hover .label{ opacity:1; }
 
-/* Phone: nicer wrapping/centering for labels (homepage only) */
+/* Phone: nicer wrapping on homepage tiles */
 @media (max-width:640px){
   .homepage .tile .label{
-    text-align:center;
-    white-space:normal;     /* let it wrap */
-    line-height:1.25;       /* tighter stack */
-    max-width:14ch;         /* balanced column width */
+    white-space:normal;
+    line-height:1.25;
+    max-width:14ch;
     margin:0 auto;
-    text-wrap:balance;      /* modern browsers */
+    text-wrap:balance;
   }
 }
 
@@ -186,14 +174,12 @@ a:hover{ opacity:.85; }
   font-size:clamp(22px,2.2vw,30px);
   letter-spacing:.01em;
 }
-
 .cv-list{
   list-style:none;
   margin:0;
   padding-left:0;
 }
 .cv-list li{ margin:18px 0 22px; }
-
 .cv-title{
   color:var(--fg);
   font-weight:800;
@@ -213,19 +199,17 @@ a:hover{ opacity:.85; }
    Work page header (per-project)
    ============================== */
 .project-head{ margin:10px 0 18px; }
-
 .project-title{
   font-size:clamp(28px,4vw,40px);
   line-height:1.1;
   margin:0;
 }
 .project-title em{
-  font-style:normal;   /* no italics */
+  font-style:normal;
   font-weight:400;
   opacity:1;
   color:var(--fg);
 }
-
 .project-meta{
   margin-top:8px;
   color:var(--fg);
@@ -253,13 +237,9 @@ a:hover{ opacity:.85; }
   display:block;
   margin:8px 0 16px;
 }
-
-/* Wider work pages on desktop */
 @media (min-width:900px){
   .container.narrow{ max-width:1200px; }
 }
-
-/* Phone sanity for videos */
 @media (max-width:640px){
   .project-hero video,
   .project-hero .plyr,
@@ -290,27 +270,17 @@ a:hover{ opacity:.85; }
 /* ==============================
    Connect page (uses footer icons)
    ============================== */
-.connect-page{
-  text-align:center;
-  margin-top:72px;
-}
+.connect-page{ text-align:center; margin-top:72px; }
 .connect-title{
   font-size:clamp(36px,7vw,80px);
   font-weight:800;
   margin:0;
   color:var(--fg);
 }
-
-/* Pull the shared footer up and remove its divider */
-.connect-page + #site-footer{
-  margin-top:10px;
-  padding-top:10px;
-  border-top:none;
-}
+/* Pull shared footer up; remove divider */
+.connect-page + #site-footer{ margin-top:10px; padding-top:10px; border-top:none; }
 .connect-page + #site-footer .social{ gap:24px; }
 .connect-page + #site-footer .social a{ font-size:44px; }
-
-/* Mobile tweaks for connect */
 @media (max-width:560px){
   .connect-page{ margin-top:56px; }
   .connect-page + #site-footer .social{ gap:20px; }
