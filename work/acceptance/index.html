@@ -5,11 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Acceptance — Sumit M Pujar</title>
 
-  <!-- ✅ Always root-absolute -->
   <link rel="stylesheet" href="/styles.css" />
-
-  <!-- (Optional) if you had extra scripts, make them absolute too -->
-  <!-- <script src="/scripts/include-work-head.js"></script> -->
+  <!-- Bring back the shared player bundle so it matches the others -->
+  <script src="/scripts/include-work-head.js"></script>
 </head>
 <body>
   <!-- Shared header -->
@@ -17,8 +15,6 @@
   <script src="/scripts/include-header.js" defer></script>
 
   <main class="container narrow">
-
-    <!-- Project header (consistent) -->
     <div class="project-head">
       <h1 class="project-title">
         Acceptance <em>// Ensorcell Inc.</em>
@@ -29,9 +25,9 @@
       <div class="project-roles">Writer, Director</div>
     </div>
 
-    <!-- Hero video -->
     <div class="project-hero">
       <video
+        class="project-video"
         controls
         preload="metadata"
         playsinline
@@ -42,7 +38,6 @@
       </video>
     </div>
 
-    <!-- Project navigation -->
     <div class="project-nav">
       <a class="prev" href="/work/winners-of-covid/">&#10094; Prev</a>
       <a class="next" href="/work/the-rapscallion/">Next &#10095;</a>
