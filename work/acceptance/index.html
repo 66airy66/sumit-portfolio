@@ -4,14 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Acceptance — Sumit M Pujar</title>
+
+  <!-- ✅ Always root-absolute -->
   <link rel="stylesheet" href="/styles.css" />
-  <!-- Shared work-page scripts -->
-  <script src="../scripts/include-work-head.js"></script>
+
+  <!-- (Optional) if you had extra scripts, make them absolute too -->
+  <!-- <script src="/scripts/include-work-head.js"></script> -->
 </head>
 <body>
   <!-- Shared header -->
   <div id="site-header"></div>
-  <script src="../scripts/include-header.js" defer></script>
+  <script src="/scripts/include-header.js" defer></script>
 
   <main class="container narrow">
 
@@ -32,22 +35,22 @@
         controls
         preload="metadata"
         playsinline
-        poster="../images/11-acceptance/11. Acceptance.png">
-        <source src="../images/11-acceptance/11. Acceptance.mp4" type="video/mp4" />
+        poster="/images/11-acceptance/11. Acceptance.png">
+        <source src="/images/11-acceptance/11. Acceptance.mp4" type="video/mp4" />
         Your browser does not support HTML5 video.
-        <a href="../images/11-acceptance/11. Acceptance.mp4">Download the video</a>.
+        <a href="/images/11-acceptance/11. Acceptance.mp4">Download the video</a>.
       </video>
     </div>
 
     <!-- Project navigation -->
     <div class="project-nav">
-      <a class="prev" href="work/winners-of-covid/index.html">&#10094; Prev</a>
-      <a class="next" href="work/the-rapscallion/index.html">Next &#10095;</a>
+      <a class="prev" href="/work/winners-of-covid/">&#10094; Prev</a>
+      <a class="next" href="/work/the-rapscallion/">Next &#10095;</a>
     </div>
   </main>
 
   <!-- Shared footer -->
   <div id="site-footer"></div>
-  <script src="../scripts/include-footer.js" defer></script>
+  <script src="/scripts/include-footer.js" defer></script>
 </body>
 </html>
