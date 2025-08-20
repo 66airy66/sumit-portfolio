@@ -18,8 +18,8 @@
   --muted:#c6c6c6;
   --max:1100px;
 
-  /* header height (desktop default) */
-  --header-h: 80px;
+  /* header height (approx; used to push content below fixed header) */
+  --header-h: 84px;
 }
 
 *{ box-sizing:border-box; }
@@ -41,22 +41,28 @@ a{ color:var(--fg); text-decoration:none; }
 a:hover{ opacity:.85; }
 
 /* ==============================
-   Header (fixed)
+   Header (fixed, solid black)
    ============================== */
 
-/* Bar */
+/* The element injected by include-header.js has class "site-header" */
 .site-header{
   position:fixed;
   top:0; left:0; right:0;
   z-index:1000;
-  background:rgba(0,0,0,.9);     /* translucent on desktop */
-  padding:20px 24px;
+  background:#000;                              /* ← always solid black */
+  color:var(--fg);
+  padding:16px 24px;
+  /* add safe-area breathing room on iOS */
+  padding-top:calc(16px + env(safe-area-inset-top, 0px));
+  box-shadow:0 1px 0 rgba(255,255,255,0.06);    /* subtle divider line */
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
 }
 
-/* Inner layout from your markup */
+/* Inner layout from your header.html */
 .site-header > .header-inner{
   display:grid;
-  grid-template-columns:auto 1fr auto; /* brand | spacer | nav */
+  grid-template-columns:auto 1fr auto;          /* brand | spacer | nav */
   align-items:center;
   gap:28px;
 }
@@ -98,17 +104,9 @@ a:hover{ opacity:.85; }
 .nav a{ display:inline-block; }
 .nav .active{ opacity:.6; }
 
-/* ===== Phones: solid black, safe‑area, centered ===== */
+/* Phones: center header content & account for taller safe-area */
 @media (max-width:560px){
-  :root{ --header-h: calc(72px + env(safe-area-inset-top)); }
-
-  .site-header{
-    background:#000 !important;            /* solid black on mobile */
-    padding-top:max(12px, env(safe-area-inset-top));
-    -webkit-backdrop-filter:none !important;
-    backdrop-filter:none !important;
-    box-shadow:0 1px 0 rgba(255,255,255,0.08); /* subtle divider */
-  }
+  :root{ --header-h: calc(84px + env(safe-area-inset-top, 0px)); }
 
   .site-header > .header-inner{
     grid-template-columns:1fr;
@@ -128,7 +126,7 @@ a:hover{ opacity:.85; }
    Page containers
    ============================== */
 .container{ max-width:var(--max); margin:40px auto; padding:0 24px; }
-.container.narrow{ max-width:1100px; }   /* work pages */
+.container.narrow{ max-width:1100px; }
 .container.full{ max-width:none; margin:0; padding:0; }
 
 /* ==============================
